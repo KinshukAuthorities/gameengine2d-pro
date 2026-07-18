@@ -50,8 +50,8 @@ During this validation, two package completeness issues were caught before relea
 
 - **File:** `dist/GameEngine2DPro-Setup-1.0.0-x64.exe`
 - **Version:** `1.0.0`
-- **Verified size:** approximately 526.5 MB
-- **SHA-256:** `5BDC5B23331998119F098F72206B1543CB0136152155CD55DA0FC0A021919BB3`
+- **Verified size:** approximately 526.6 MiB (552,130,649 bytes)
+- **SHA-256:** `E7AED7F539BA626850703CCFAC48B29414C4628DDCD6DF160FC61DCE8D6AA413`
 
 ## How Codex and GPT-5.6 were used
 
