@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Imported after Microsoft.Cpp.props by generated Windows C++ projects. -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <!-- CMake imports this sheet after Microsoft.Cpp.Common.props.  That
+         import has already cached the default HostX86 executable path, so
+         set the effective architecture/path as well as the preference. -->
+    <VCToolArchitecture>Native64Bit</VCToolArchitecture>
+    <VC_ExecutablePath_x64>$(VCToolsInstallDir)bin\HostX64\x64;$(VCToolsInstallDir)bin\HostX64\x86</VC_ExecutablePath_x64>
+    <!-- Microsoft.Cpp.MSVC.Toolset.x64.props has already materialized this
+         value before CMake's VS_USER_PROPS import.  The CL task inherits
+         ExecutablePath through SetBuildDefaultEnvironmentVariables, so this
+         is the authoritative late override. -->
+    <ExecutablePath>$(VCToolsInstallDir)bin\HostX64\x64;$(CommonExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,110 @@
+[
+  {
+    "fp": 1.0000001192092896,
+    "id": 1,
+    "in_pins": [
+      {
+        "id": 1,
+        "label": "",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "label": "🔁 For Loop",
+    "out_pins": [
+      {
+        "id": 2,
+        "label": "Body",
+        "literal": "",
+        "type": "exec"
+      },
+      {
+        "id": 3,
+        "label": "Completed",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "p1": "",
+    "p2": "",
+    "p3": "",
+    "type": "for_loop",
+    "x": 216.0,
+    "y": 36.0
+  },
+  {
+    "fp": 0.0,
+    "id": 2,
+    "in_pins": [
+      {
+        "id": 4,
+        "label": "",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "label": "💥 On Collision Exit",
+    "out_pins": [
+      {
+        "id": 5,
+        "label": "",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "p1": "",
+    "p2": "",
+    "p3": "",
+    "type": "on_collision_exit",
+    "x": 552.0,
+    "y": -96.0
+  },
+  {
+    "fp": 0.0,
+    "id": 3,
+    "in_pins": [
+      {
+        "id": 6,
+        "label": "",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "label": "🎬 Play Animation",
+    "out_pins": [
+      {
+        "id": 7,
+        "label": "",
+        "literal": "",
+        "type": "exec"
+      }
+    ],
+    "p1": "",
+    "p2": "",
+    "p3": "",
+    "type": "play_animation",
+    "x": 588.0,
+    "y": 192.0
+  },
+  {
+    "_meta": true,
+    "format": "gameengine.visual-script",
+    "links": [
+      {
+        "fn": 1,
+        "fp": 2,
+        "tn": 2,
+        "tp": 4
+      },
+      {
+        "fn": 1,
+        "fp": 3,
+        "tn": 3,
+        "tp": 6
+      }
+    ],
+    "next_id": 4,
+    "next_pin_id": 8,
+    "version": 2
+  }
+]

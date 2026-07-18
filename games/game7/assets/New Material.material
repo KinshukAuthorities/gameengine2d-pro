@@ -1,0 +1,18 @@
+{
+  "alpha_cutoff": 0.5,
+  "color": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "custom_frag_spv": "",
+  "custom_vert_spv": "",
+  "filter_mode": "",
+  "light_strength": 1.0,
+  "name": "New Material",
+  "normal_map": "",
+  "render_queue_offset": 0,
+  "shader": "Sprite-Unlit",
+  "texture": ""
+}

@@ -1,0 +1,43 @@
+{
+  "atlas": "tile_palettes/New_Tile_Palette/New_Tile_Palette_atlas.png",
+  "cell_height": 32,
+  "cell_width": 32,
+  "format": "gameengine.tile-palette",
+  "format_version": 1,
+  "guid": "b87cf2a757277c20-240a6bb1b48c",
+  "name": "New Tile Palette",
+  "tiles": [
+    {
+      "animated_tile": "",
+      "atlas_h": 32,
+      "atlas_w": 32,
+      "atlas_x": 2,
+      "atlas_y": 2,
+      "collision": "solid",
+      "guid": "5a7071915452d822-240ccf611070",
+      "id": 0,
+      "rule_tile": "",
+      "source": "lantern_abyss.png",
+      "source_h": 0,
+      "source_w": 0,
+      "source_x": 0,
+      "source_y": 0
+    },
+    {
+      "animated_tile": "",
+      "atlas_h": 32,
+      "atlas_w": 32,
+      "atlas_x": 38,
+      "atlas_y": 2,
+      "collision": "solid",
+      "guid": "ec833f813133e453-240e07036ef0",
+      "id": 1,
+      "rule_tile": "",
+      "source": "crystal_prop_abyss.png",
+      "source_h": 0,
+      "source_w": 0,
+      "source_x": 0,
+      "source_y": 0
+    }
+  ]
+}

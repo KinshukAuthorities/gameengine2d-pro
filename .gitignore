@@ -1,0 +1,45 @@
+# Generated engine/build output - regenerate locally or through the installer.
+/build/
+/dist/
+/export/
+/installer_smoke/
+/crash_reports/
+/backs/
+
+# Per-user editor, Hub, and runtime state.
+/editor_layout.ini
+/editor_prefs.json
+/hub_layout.ini
+/hub_prefs.json
+/player_prefs.json
+/.gameengine.lock
+
+# Local AI assistant configuration; never part of a project submission.
+/.claude/
+/.codex/
+
+# Native build/cache residue.
+/.vs/
+/.vscode/
+/.idea/
+/**/CMakeFiles/
+/**/CMakeCache.txt
+/**/cmake_install.cmake
+/**/*.vcxproj
+/**/*.vcxproj.filters
+/**/*.sln
+/**/*.obj
+/**/*.pdb
+/**/*.ilk
+/**/*.exp
+/**/*.lib
+/**/*.dll
+/**/*.exe
+/**/*.tmp
+/**/*.log
+/**/__pycache__/
+/**/*.pyc
+
+# Operating-system and archive noise.
+/.DS_Store
+/Thumbs.db

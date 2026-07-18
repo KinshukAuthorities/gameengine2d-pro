@@ -1,0 +1,49 @@
+#version 450
+
+// particle.comp — GPU particle simulation
+// Dispatch: 1D, 64 threads/group, 1 group per 64 particles.
+// Each invocation advances one particle; survivors are written to dst SSBO.
+
+layout(local_size_x = 64) in;
+
+struct Particle {
+    float x, y;
+    float vx, vy;
+    float age;
+    float lifetime;
+    int   frame;   // task 12: atlas frame index, set at spawn — unused by sim,
+                    // just carried through so the render pass can sample the
+                    // right atlas cell.
+    float _pad0;
+};
+
+layout(std430, binding = 0) readonly  buffer SrcBuf { Particle src[]; };
+layout(std430, binding = 1) writeonly buffer DstBuf { Particle dst[]; };
+layout(std430, binding = 2) buffer CounterBuf { uint alive_count; };
+
+layout(binding = 3) uniform UBO {
+    float dt;
+    float gravity_x;
+    float gravity_y;
+    uint  max_particles;
+};
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx >= max_particles) return;
+
+    Particle p = src[idx];
+    float new_age = p.age + dt;
+    if (new_age >= p.lifetime) return; // particle died — skip writing to dst
+
+    // Integrate position and apply gravity
+    p.vx += gravity_x * dt;
+    p.vy += gravity_y * dt;
+    p.x  += p.vx * dt;
+    p.y  += p.vy * dt;
+    p.age = new_age;
+
+    // Atomically claim a slot in the output buffer
+    uint out_idx = atomicAdd(alive_count, 1);
+    dst[out_idx] = p;
+}

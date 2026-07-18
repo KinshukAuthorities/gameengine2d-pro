@@ -1,0 +1,253 @@
+{
+  "root": {
+    "active": true,
+    "components": {
+      "Animator": {
+        "animations": {
+          "gun_dash": {
+            "fps": 18,
+            "frames": [
+              22
+            ],
+            "loop": false
+          },
+          "gun_fall": {
+            "fps": 10,
+            "frames": [
+              6,
+              7
+            ],
+            "loop": true
+          },
+          "gun_hurt": {
+            "fps": 16,
+            "frames": [
+              23,
+              0
+            ],
+            "loop": false,
+            "ping_pong": true
+          },
+          "gun_idle": {
+            "fps": 6,
+            "frames": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "loop": true
+          },
+          "gun_jump": {
+            "fps": 10,
+            "frames": [
+              4,
+              5
+            ],
+            "loop": false
+          },
+          "gun_reload": {
+            "fps": 5,
+            "frames": [
+              0,
+              1,
+              2,
+              1
+            ],
+            "loop": true,
+            "ping_pong": true
+          },
+          "gun_shoot": {
+            "fps": 16,
+            "frames": [
+              16,
+              17,
+              18
+            ],
+            "loop": false
+          },
+          "gun_walk": {
+            "fps": 12,
+            "frames": [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "loop": true
+          },
+          "sword_dash": {
+            "fps": 18,
+            "frames": [
+              22
+            ],
+            "loop": false
+          },
+          "sword_fall": {
+            "fps": 10,
+            "frames": [
+              6,
+              7
+            ],
+            "loop": true
+          },
+          "sword_hurt": {
+            "fps": 16,
+            "frames": [
+              23,
+              0
+            ],
+            "loop": false,
+            "ping_pong": true
+          },
+          "sword_idle": {
+            "fps": 6,
+            "frames": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "loop": true
+          },
+          "sword_jump": {
+            "fps": 10,
+            "frames": [
+              4,
+              5
+            ],
+            "loop": false
+          },
+          "sword_slash1": {
+            "fps": 20,
+            "frames": [
+              24,
+              25,
+              25
+            ],
+            "loop": false
+          },
+          "sword_slash2": {
+            "fps": 22,
+            "frames": [
+              24,
+              26,
+              26
+            ],
+            "loop": false
+          },
+          "sword_slash3": {
+            "fps": 24,
+            "frames": [
+              24,
+              27,
+              27,
+              27
+            ],
+            "loop": false
+          },
+          "sword_walk": {
+            "fps": 12,
+            "frames": [
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "loop": true
+          },
+          "sword_windup": {
+            "fps": 22,
+            "frames": [
+              24
+            ],
+            "loop": false
+          }
+        },
+        "current_animation": "gun_idle",
+        "default_fps": 10,
+        "frame_height": 64,
+        "frame_width": 48,
+        "loop": true,
+        "playing": true,
+        "sheet_columns": 8,
+        "sheet_padding": 0,
+        "sheet_rows": 4,
+        "sheet_spacing": 0,
+        "speed": 1.0,
+        "sprite_sheet": "player_abyss_sheet.png",
+        "use_sprite_sheet": true
+      },
+      "BoxCollider2D": {
+        "bounciness": 0.0,
+        "friction": 0.18,
+        "height": 42,
+        "is_trigger": false,
+        "offset_x": 0,
+        "offset_y": 0,
+        "width": 26
+      },
+      "Rigidbody2D": {
+        "angular_drag": 0.05,
+        "constraints": {},
+        "drag": 0.0,
+        "freeze_rotation": true,
+        "gravity_scale": 0.0,
+        "is_kinematic": false,
+        "mass": 1.0,
+        "velocity_x": 0.0,
+        "velocity_y": 0.0
+      },
+      "Script": {
+        "class_name": "",
+        "field_overrides": {
+          "AbyssPlayer": {}
+        },
+        "scripts": [
+          "AbyssPlayer"
+        ]
+      },
+      "SpriteRenderer": {
+        "color": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "flip_x": false,
+        "flip_y": false,
+        "layer": 2,
+        "opacity": 1.0,
+        "order_in_layer": 10,
+        "pixels_per_unit": 1.0,
+        "source_h": 64,
+        "source_w": 48,
+        "source_x": 0,
+        "source_y": 0,
+        "texture": "player_abyss_sheet.png",
+        "use_source_rect": true
+      },
+      "Transform": {
+        "rotation": 0.0,
+        "scale_x": 1.0,
+        "scale_y": 1.0,
+        "x": 224,
+        "y": 1344
+      }
+    },
+    "damage": 0,
+    "hp": 8,
+    "id": 6015,
+    "max_hp": 8,
+    "name": "AbyssPlayer",
+    "team": 1
+  }
+}

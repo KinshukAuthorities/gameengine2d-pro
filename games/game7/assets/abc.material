@@ -1,0 +1,16 @@
+{
+  "alpha_cutoff": 0.5,
+  "color": [
+    166,
+    0,
+    255,
+    255
+  ],
+  "filter_mode": "",
+  "light_strength": 1.0,
+  "name": "New Material1",
+  "normal_map": "",
+  "render_queue_offset": 0,
+  "shader": "Sprite-Lit",
+  "texture": ""
+}

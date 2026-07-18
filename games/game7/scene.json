@@ -1,0 +1,1384 @@
+{
+  "entities": [
+    {
+      "active": true,
+      "children": [],
+      "id": 1000,
+      "name": "Camera",
+      "components": {
+        "Camera2D": {
+          "background_color": [
+            4,
+            3,
+            12,
+            255
+          ],
+          "ortho_size": 540.0,
+          "zoom": 1.0
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1001,
+      "name": "Menu_Backdrop",
+      "components": {
+        "ParallaxBackground": {
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "depth": -4500,
+          "offset_x": 0.0,
+          "offset_y": 0.0,
+          "opacity": 0.95,
+          "scale": 1.8,
+          "scroll_with_camera": true,
+          "speed_x": 0.025,
+          "speed_y": 0.0,
+          "texture": "bg_abyss_deep.png",
+          "tiling_x": true,
+          "tiling_y": true
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1002,
+      "name": "Menu_BackdropMid",
+      "components": {
+        "ParallaxBackground": {
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "depth": -3000,
+          "offset_x": 0.0,
+          "offset_y": 0.0,
+          "opacity": 0.9,
+          "scale": 1.8,
+          "scroll_with_camera": true,
+          "speed_x": 0.045,
+          "speed_y": 0.0,
+          "texture": "bg_abyss_mid.png",
+          "tiling_x": true,
+          "tiling_y": true
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1003,
+      "name": "Menu_BackdropFront",
+      "components": {
+        "ParallaxBackground": {
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "depth": -1500,
+          "offset_x": 0.0,
+          "offset_y": 0.0,
+          "opacity": 0.85,
+          "scale": 1.8,
+          "scroll_with_camera": true,
+          "speed_x": 0.07,
+          "speed_y": 0.0,
+          "texture": "bg_abyss_front.png",
+          "tiling_x": true,
+          "tiling_y": true
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1004,
+      "name": "Menu_Mist",
+      "components": {
+        "ParallaxBackground": {
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "depth": -800,
+          "offset_x": 0.0,
+          "offset_y": 0.0,
+          "opacity": 0.75,
+          "scale": 1.8,
+          "scroll_with_camera": true,
+          "speed_x": 0.12,
+          "speed_y": 0.0,
+          "texture": "bg_abyss_mist.png",
+          "tiling_x": true,
+          "tiling_y": true
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1005,
+      "name": "MenuController",
+      "components": {
+        "ScriptComponent": {
+          "scripts": [
+            "abyss_menu_controller"
+          ]
+        },
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1006,
+      "name": "HUDPanel",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIPanel": {
+          "anchor_x": 0.0,
+          "anchor_y": 0.0,
+          "color": [
+            14,
+            12,
+            28,
+            176
+          ],
+          "height": 116,
+          "pivot_x": 0.0,
+          "pivot_y": 0.0,
+          "pos_x": 12,
+          "pos_y": 12,
+          "width": 490
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1007,
+      "name": "HudLogo",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIImage": {
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "height": 76,
+          "opacity": 1.0,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 622,
+          "pos_y": -535,
+          "texture": "logo_abyss.png",
+          "width": 76
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1008,
+      "name": "HudHealth",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            160,
+            255,
+            180,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -26,
+          "shadow": true,
+          "text": "HP 8 / 8",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1009,
+      "name": "HudEnergy",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            120,
+            200,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -52,
+          "shadow": true,
+          "text": "EN 100",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1010,
+      "name": "HudRoom",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            220,
+            200,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -78,
+          "shadow": true,
+          "text": "???",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1011,
+      "name": "HudHint",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            255,
+            240,
+            160,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -104,
+          "shadow": true,
+          "text": "",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1012,
+      "name": "HudAmmo",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            255,
+            200,
+            100,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -130,
+          "shadow": true,
+          "text": "AMMO 12",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1013,
+      "name": "HudCombo",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "left",
+          "anchor_x": 0.0,
+          "anchor_y": 1.0,
+          "bold": true,
+          "color": [
+            255,
+            160,
+            80,
+            255
+          ],
+          "font_size": 16,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.0,
+          "pivot_y": 1.0,
+          "pos_x": 28,
+          "pos_y": -156,
+          "shadow": true,
+          "text": "",
+          "v_align": "middle",
+          "width": 250
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1100,
+      "name": "Menu_Logo",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            220,
+            200,
+            255,
+            255
+          ],
+          "font_size": 48,
+          "height": 60,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -180,
+          "shadow": true,
+          "text": "ABYSS OF HOLLOWS",
+          "v_align": "middle",
+          "width": 600
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1101,
+      "name": "Menu_Title",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            180,
+            160,
+            220,
+            255
+          ],
+          "font_size": 20,
+          "height": 30,
+          "italic": true,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -130,
+          "shadow": true,
+          "text": "A Hollow Knight Adventure",
+          "v_align": "middle",
+          "width": 400
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1102,
+      "name": "Menu_Subtitle",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            140,
+            120,
+            180,
+            255
+          ],
+          "font_size": 14,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -100,
+          "shadow": true,
+          "text": "Select a realm to explore",
+          "v_align": "middle",
+          "width": 400
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1103,
+      "name": "Menu_Status",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            255,
+            200,
+            100,
+            255
+          ],
+          "font_size": 14,
+          "height": 22,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 340,
+          "shadow": true,
+          "text": "",
+          "v_align": "middle",
+          "width": 400
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1104,
+      "name": "Menu_Continue",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -50,
+          "width": 220,
+          "on_click": "continue"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            180,
+            220,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -50,
+          "shadow": true,
+          "text": "Continue",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1105,
+      "name": "Menu_Start",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -10,
+          "width": 220,
+          "on_click": "start"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -10,
+          "shadow": true,
+          "text": "Home Hollow",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1106,
+      "name": "Menu_Verdant",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 30,
+          "width": 220,
+          "on_click": "verdant"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            160,
+            255,
+            180,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 30,
+          "shadow": true,
+          "text": "Verdant Hollow",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1107,
+      "name": "Menu_Crystal",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 70,
+          "width": 220,
+          "on_click": "crystal"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            255,
+            200,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 70,
+          "shadow": true,
+          "text": "Crystal Hall",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1108,
+      "name": "Menu_Flooded",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 110,
+          "width": 220,
+          "on_click": "flooded"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            160,
+            200,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 110,
+          "shadow": true,
+          "text": "Flooded Ruins",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1109,
+      "name": "Menu_Deep",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 150,
+          "width": 220,
+          "on_click": "deep"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            255,
+            180,
+            140,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 150,
+          "shadow": true,
+          "text": "Deep Mines",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1110,
+      "name": "Menu_Boss",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 190,
+          "width": 220,
+          "on_click": "boss"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": true,
+          "color": [
+            255,
+            120,
+            120,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 190,
+          "shadow": true,
+          "text": "Boss Sanctum",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1111,
+      "name": "Menu_Settings",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 230,
+          "width": 220,
+          "on_click": "settings"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            200,
+            200,
+            200,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 230,
+          "shadow": true,
+          "text": "Settings",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1112,
+      "name": "Menu_NewGame",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 270,
+          "width": 220,
+          "on_click": "newgame"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            200,
+            180,
+            140,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 270,
+          "shadow": true,
+          "text": "New Game+",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1113,
+      "name": "Menu_Reset",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 310,
+          "width": 220,
+          "on_click": "reset"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            255,
+            140,
+            140,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 310,
+          "shadow": true,
+          "text": "Reset Data",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    },
+    {
+      "active": true,
+      "children": [],
+      "id": 1114,
+      "name": "Menu_Help",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            100,
+            100,
+            120,
+            255
+          ],
+          "font_size": 12,
+          "height": 20,
+          "italic": true,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 360,
+          "shadow": true,
+          "text": "Arrow keys / WASD to move, Z to attack, X to dash, C to jump",
+          "v_align": "middle",
+          "width": 600
+        }
+      }
+    },
+    {
+      "active": false,
+      "children": [],
+      "id": 1115,
+      "name": "Menu_SettingsPanel",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIPanel": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "color": [
+            10,
+            8,
+            24,
+            200
+          ],
+          "height": 200,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 30,
+          "width": 300
+        }
+      }
+    },
+    {
+      "active": false,
+      "children": [],
+      "id": 1116,
+      "name": "Menu_ScreenShake",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -30,
+          "width": 240,
+          "on_click": "screenshake"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -30,
+          "shadow": true,
+          "text": "Screen Shake: ON",
+          "v_align": "middle",
+          "width": 240
+        }
+      }
+    },
+    {
+      "active": false,
+      "children": [],
+      "id": 1117,
+      "name": "Menu_CombatAssist",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 10,
+          "width": 240,
+          "on_click": "combatassist"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 10,
+          "shadow": true,
+          "text": "Combat Assist: OFF",
+          "v_align": "middle",
+          "width": 240
+        }
+      }
+    },
+    {
+      "active": false,
+      "children": [],
+      "id": 1118,
+      "name": "Menu_Back",
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UICanvas": {},
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 80,
+          "width": 220,
+          "on_click": "back"
+        },
+        "UIText": {
+          "align": "center",
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "bold": false,
+          "color": [
+            200,
+            200,
+            200,
+            255
+          ],
+          "font_size": 16,
+          "height": 36,
+          "italic": false,
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": 80,
+          "shadow": true,
+          "text": "Back",
+          "v_align": "middle",
+          "width": 220
+        }
+      }
+    }
+  ],
+  "sorting_layers": [
+    {
+      "id": 0,
+      "name": "Background"
+    },
+    {
+      "id": 1,
+      "name": "Terrain"
+    },
+    {
+      "id": 2,
+      "name": "Default"
+    },
+    {
+      "id": 3,
+      "name": "Effects"
+    },
+    {
+      "id": 4,
+      "name": "UI"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "format": "gameengine.shader-graph",
+  "links": [
+    {
+      "fn": 1,
+      "fp": 0,
+      "tn": 2,
+      "tp": 0
+    }
+  ],
+  "name": "MyShader",
+  "nodes": [
+    {
+      "id": 1,
+      "in_pins": [],
+      "out_pins": [
+        "UV"
+      ],
+      "type": "UV",
+      "values": {},
+      "x": 31.0,
+      "y": 136.0
+    },
+    {
+      "id": 2,
+      "in_pins": [
+        "UV"
+      ],
+      "out_pins": [
+        "RGBA",
+        "R",
+        "G",
+        "B",
+        "A"
+      ],
+      "type": "Texture2D",
+      "values": {},
+      "x": 221.0,
+      "y": 70.0
+    },
+    {
+      "id": 3,
+      "in_pins": [
+        "Albedo",
+        "Alpha"
+      ],
+      "out_pins": [],
+      "type": "Output",
+      "values": {},
+      "x": 457.0,
+      "y": 123.0
+    }
+  ],
+  "version": 2
+}

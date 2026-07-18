@@ -1,0 +1,36 @@
+{
+  "format": 1,
+  "project": "Abyss of Hollows",
+  "imports": [
+    {
+      "id": "mattbas-platformer-cc0",
+      "author": "MattBas / Glax",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/pixel-art-platformer-asset-pack",
+      "source_archive": "third_party/cc0/mattbas/raw/glax-old-platformer-assets",
+      "template_source_archive": "not shipped; source URL and licence notice retained",
+      "processed_files": [
+        "abyss/environment/cc0_leaves.png",
+        "abyss/environment/cc0_ruins.png",
+        "abyss/ui/cc0_frame_gold_blue.png"
+      ],
+      "transformation": "Copied into the Abyss namespace and tinted/composed at runtime by abyss_progression_manager."
+    },
+    {
+      "id": "ansimuz-super-grotto-cc0",
+      "author": "Ansimuz",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/warped-super-grotto-escape-pack",
+      "source_archive": "third_party/cc0/ansimuz/raw/Super Grotto Escape Files",
+      "template_source_archive": "not shipped; source URL and licence notice retained",
+      "processed_files": [
+        "abyss/environment/cc0_grotto_back.png",
+        "abyss/environment/cc0_grotto_far.png",
+        "abyss/environment/cc0_grotto_mid.png",
+        "abyss/environment/cc0_grotto_tileset.png",
+        "abyss/pickups/cc0_lore_scroll.png"
+      ],
+      "transformation": "Copied into the Abyss namespace and used only as environment, prop, and pickup presentation layers."
+    }
+  ]
+}

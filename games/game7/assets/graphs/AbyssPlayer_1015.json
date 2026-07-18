@@ -1,0 +1,147 @@
+{
+  "format": "gameengine.visual-script",
+  "links": [
+    {
+      "fn": 5,
+      "fp": 14,
+      "tn": 7,
+      "tp": 17
+    },
+    {
+      "fn": 9,
+      "fp": 28,
+      "tn": 10,
+      "tp": 29
+    }
+  ],
+  "next_id": 11,
+  "next_pin_id": 32,
+  "nodes": [
+    {
+      "fp": 0.0,
+      "id": 5,
+      "in_pins": [
+        {
+          "id": 13,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "label": "▶ On Start",
+      "out_pins": [
+        {
+          "id": 14,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "p1": "",
+      "p2": "",
+      "p3": "",
+      "type": "on_start",
+      "x": -288.0,
+      "y": -156.0
+    },
+    {
+      "fp": 0.0,
+      "id": 7,
+      "in_pins": [
+        {
+          "id": 17,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "label": "📋 Log Message",
+      "out_pins": [
+        {
+          "id": 18,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "p1": "test",
+      "p2": "",
+      "p3": "",
+      "type": "log",
+      "x": 204.0,
+      "y": -168.0
+    },
+    {
+      "fp": 0.0,
+      "id": 9,
+      "in_pins": [
+        {
+          "id": 27,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "label": "▶ On Start",
+      "out_pins": [
+        {
+          "id": 28,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "p1": "",
+      "p2": "",
+      "p3": "",
+      "type": "on_start",
+      "x": 156.0,
+      "y": 180.0
+    },
+    {
+      "fp": 5.0,
+      "id": 10,
+      "in_pins": [
+        {
+          "id": 29,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        },
+        {
+          "id": 30,
+          "label": "Seconds",
+          "literal": "",
+          "type": "float"
+        }
+      ],
+      "label": "⏳ Wait",
+      "out_pins": [
+        {
+          "id": 31,
+          "label": "",
+          "literal": "",
+          "type": "exec"
+        }
+      ],
+      "p1": "",
+      "p2": "",
+      "p3": "",
+      "type": "wait",
+      "x": 444.0,
+      "y": 144.0
+    }
+  ],
+  "owner": {
+    "entity_id": 1015,
+    "entity_name": "AbyssPlayer"
+  },
+  "variables": [
+    {
+      "default": "55",
+      "name": "o",
+      "type": "bool"
+    }
+  ],
+  "version": 3
+}
