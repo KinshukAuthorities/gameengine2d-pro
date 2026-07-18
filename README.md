@@ -29,7 +29,9 @@ Small 2D projects commonly lose momentum to setup friction: scattered project fo
 
 ### Recommended: use the packaged installer
 
-1. Download `GameEngine2DPro-Setup-1.0.0-x64.exe` from the repository's **v1.0.0 GitHub Release**. For a local checkout, the same file is at [`dist/GameEngine2DPro-Setup-1.0.0-x64.exe`](dist/GameEngine2DPro-Setup-1.0.0-x64.exe).
+> **Evaluators:** use the [v1.0.0 GitHub Release](../../releases/latest) to run the product. **Code -> Download ZIP** is the reviewable source archive, not a portable engine installation; it intentionally excludes generated build output and the 526 MiB installer.
+
+1. Download `GameEngine2DPro-Setup-1.0.0-x64.exe` from the repository's **v1.0.0 GitHub Release**.
 2. Let the installer place the engine under `%LocalAppData%\GameEngine2D Pro` and install its required authoring prerequisites.
 3. Start **GameEngine Hub** from the Start Menu.
 4. Select **New project** and choose the **Abyss of Hollows** template, or open an existing project.
@@ -39,9 +41,9 @@ The release installer is Windows x64 only. A Vulkan-capable GPU driver is requir
 
 ### Verify the native script path
 
-1. In the opened project, inspect `scripts/` in the Assets panel.
-2. Edit and save one existing `.cpp` script, or create a new script in that folder.
-3. Select **Reload Scripts**. The workflow rebuilds the changed native script module rather than the Editor executable.
+1. On first project open, the Editor automatically locks and synchronizes the active project's native scripts. The progress popup explains that a first synchronization can take a few minutes; no manual **Reload Scripts** click is required.
+2. In the opened project, inspect `scripts/` in the Assets panel.
+3. Edit and save one existing `.cpp` script, or create a new script in that folder. The workflow rebuilds the changed native script module rather than the Editor executable.
 4. Return to Play mode and confirm the project runs.
 
 The final packaged Abyss template was checked in an isolated staging root: all 24 included native script modules compiled successfully, every scene script reference had a registered class, and retired numbered scripts were excluded.
