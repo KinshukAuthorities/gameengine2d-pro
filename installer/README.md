@@ -1,68 +1,52 @@
-# GameEngine2D Pro Windows installer
+# Windows Installer Build Notes
 
-`scripts\build_installer.ps1` creates the release installer. It is the only
-supported packaging entry point; it stages the exact engine files and obtains
-prerequisite installers directly from their official publishers.
+This folder contains the Inno Setup definition and packaging notes for the GameEngine2D Pro Windows release. It is for release maintenance; it is not the end-user installation guide.
+
+## Build the installer
+
+Run this command from the repository root:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\build_installer.ps1
 ```
 
-The script performs the Release editor/Hub build first unless `-SkipBuild` is
-specified. It then downloads or reuses a signed cache in
-`build\installer_prerequisites`, validates each executable as a Windows PE
-file and verifies its Authenticode publisher before embedding it. Use
-`-SkipPrerequisiteDownload` only for a repeat packaging pass that already has
-the verified cache. The generated installer displays the exact version, file
-size and SHA-256 for the actual binaries embedded in that release.
+The script builds the Release Editor and Hub, stages the exact release payload, verifies prerequisite installers, and writes the final executable to `dist\GameEngine2DPro-Setup-1.0.0-x64.exe`.
 
-## What the installer installs
+Use `-SkipPrerequisiteDownload` only when the verified prerequisite cache already exists and a repeat packaging pass is needed.
 
-The engine itself is per-user at `%LocalAppData%\GameEngine2D Pro`, including
-Hub, Editor, game templates, shaders, assets, engine headers/source, and a
-writable `games\` directory. The installer also installs or updates the
-following required authoring dependencies:
+## Installed payload
+
+The installer places the engine under `%LocalAppData%\GameEngine2D Pro`. The installed payload includes:
+
+- GameEngine Hub and Editor
+- SDL runtime, shaders, runtime assets, and editor symbols
+- The **Abyss of Hollows** Hub template
+- Engine and editor source/headers required for native C++ script synchronization
+- A writable `games\` directory for Hub-created projects
+
+## Required dependencies
+
+The setup handles the authoring dependencies used by the native script workflow:
 
 - Microsoft Visual C++ x64 Redistributable
-- Visual Studio Code (per-user x64 setup, skipped when a registered install is
-  already present)
-- Visual Studio Build Tools: MSVC x64/x86 tools, MSBuild, CMake project tools,
-  and recommended components
-- LunarG/Khronos Vulkan Runtime loader when Windows has no loader
-- LunarG Vulkan SDK for compiling the Editor and standalone exports
+- Visual Studio Code, when it is not already registered for the current user
+- Visual Studio Build Tools with MSVC, MSBuild, and CMake components
+- Vulkan Runtime loader when Windows does not already provide one
+- Vulkan SDK for Editor and standalone-build authoring
 
-SDL2 is not a machine prerequisite. `SDL2.dll`, headers and the x64 import
-library are packaged alongside the engine, so a user never has to locate or
-install a separate SDL SDK.
+SDL is bundled with the engine and does not require a separate SDK installation.
 
-The Visual Studio Build Tools EXE is Microsoft’s small official bootstrapper:
-the setup shows its exact bootstrap size, but Microsoft downloads the selected
-MSVC/CMake workload during install. Reserve roughly 10 GB and require an
-internet connection for that one installation phase. An entirely offline
-Build Tools layout is deliberately not claimed by this installer because it
-would add many gigabytes and must be generated from Microsoft’s current
-workload manifest.
+The Microsoft Build Tools bootstrapper downloads its selected workload during installation. Reserve approximately 10 GB and an internet connection for that step. The installer does not attempt to replace NVIDIA, AMD, or Intel graphics drivers; a Vulkan-capable GPU driver remains a system requirement.
 
-The setup can install the Vulkan loader/runtime, but no universal installer
-can provide a Vulkan-capable GPU driver/ICD. That part comes from the actual
-NVIDIA, AMD, or Intel driver for the user’s GPU. The wizard runs this check
-automatically after setup and gives a clear blocking message if the loader is
-still unavailable; it never overwrites graphics drivers.
+## Release notes
 
-Shared system dependencies (VC++ runtime, Build Tools, VS Code, Vulkan SDK and
-Vulkan Runtime) are not removed by uninstalling the engine. That prevents an
-engine uninstall from breaking other software. The engine’s own files, Hub
-shortcuts, and per-user installation are removed normally.
+The installer is currently unsigned. Sign the final executable with an Authenticode certificate before a public commercial release.
 
-The installer is currently unsigned. Add an Authenticode signing certificate
-to the release pipeline before public distribution.
+`THIRD_PARTY_NOTICES.md` is intentionally included in the installed payload. It records the license and attribution information required for bundled third-party components and assets.
 
-## Upstream sources and notices
+## Upstream prerequisite sources
 
-- VC++ Redist: Microsoft `https://aka.ms/vc14/vc_redist.x64.exe`
-- Build Tools: Microsoft `https://aka.ms/vs/17/release/vs_buildtools.exe`
-- VS Code user setup: `https://update.code.visualstudio.com/latest/win32-x64-user/stable`
-- Vulkan SDK/runtime: LunarG’s official version/download API
-
-The package downloads these binaries unmodified. Review the upstream licence
-terms and notices before distributing a public installer.
+- Microsoft VC++ Redistributable: `https://aka.ms/vc14/vc_redist.x64.exe`
+- Microsoft Build Tools: `https://aka.ms/vs/17/release/vs_buildtools.exe`
+- Visual Studio Code: `https://update.code.visualstudio.com/latest/win32-x64-user/stable`
+- Vulkan SDK and Runtime: LunarG's official download service
