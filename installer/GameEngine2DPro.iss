@@ -17,6 +17,11 @@ AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 DefaultDirName={localappdata}\GameEngine2D Pro
 DefaultGroupName={#AppName}
+; Always let the user choose and review the destination before any engine
+; files or prerequisites are installed.  Do not let Inno's automatic wizard
+; simplification hide these pages for a repeat installation.
+DisableDirPage=no
+DisableReadyPage=no
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
@@ -173,6 +178,16 @@ begin
     'Vulkan loader setup is automatic. A Vulkan-capable GPU driver/ICD remains a hardware-vendor requirement; this setup will never overwrite a graphics driver.';
   Page := CreateOutputMsgPage(wpSelectDir, 'Installation contents',
     'Required engine dependencies and download sizes', Contents);
+end;
+
+function UpdateReadyMemo(Space, NewLine, MemoUserInfo, MemoDirInfo, MemoType,
+  MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
+begin
+  Result :=
+    'GameEngine2D Pro will be installed to:' + NewLine +
+    ExpandConstant('{app}') + NewLine + NewLine +
+    'Choose a different folder on the previous page if required.' + NewLine + NewLine +
+    MemoTasksInfo;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
