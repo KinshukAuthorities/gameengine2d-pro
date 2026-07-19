@@ -19,11 +19,12 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 > **Run the release installer, not Code → Download ZIP.** The ZIP is source code for review and reproducible builds. It intentionally excludes generated build output and the installer executable.
 
 1. Download `GameEngine2DPro-Setup-1.0.0-x64.exe` from the repository's [v1.0.0 GitHub Release](../../releases/latest).
-2. Run the installer. It installs GameEngine2D Pro to `%LocalAppData%\GameEngine2D Pro` and sets up the authoring prerequisites needed for native C++ scripts.
+2. Run the installer. It installs GameEngine2D Pro to `%LocalAppData%\GameEngine2D Pro` by default and sets up the authoring prerequisites needed for native C++ scripts.
 3. Launch **GameEngine Hub** from the Start Menu.
 4. Create a project with the **Abyss of Hollows** template, then open it in the Editor.
-5. The Abyss of Hollows template includes prebuilt native gameplay modules, so its scripts are registered immediately—no first-launch compile is required.
+5. The Abyss of Hollows template includes prebuilt native gameplay modules, just click on play in editor to start playing..
 6. Press **Play** in the Editor to run the active scene.
+7. **PLEASE NOTE THAT IF THE HUB DOSENT WORK AT START, THEN CLOSE AND REOPEN THE HUB, ALSO SOME MAPS OF TEMPLATE GAME ARE LITTLE BUGGY, I GOT NO TIME TO FIX THEM, BUT REST ARE PERFERCTLY FINE....**
 
 ### Quick test path
 
