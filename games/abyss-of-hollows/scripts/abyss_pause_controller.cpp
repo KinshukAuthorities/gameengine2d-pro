@@ -17,49 +17,75 @@ public:
 
     void Update(float /*dt*/) override {
         EnsureUi();
-        // This is the missing entry point in the previous pause contract:
-        // UpdateUnscaled only runs *after* time has been paused, so Escape
-        // could never open the menu in the first place.  Handle the first
-        // edge on the normal gameplay clock, then the unscaled branch below
-        // owns the menu until Resume is selected.
+
+        // Time::bind_state is NOT wired into RegisterAllScripts, so
+        // AbyssGame::SetPaused()'s Time::time_scale = 0 (written into the
+        // DLL's private copy) is invisible to the host engine — it never
+        // calls update_unscaled().  Handle the ENTIRE pause flow here in
+        // Update(), which the engine calls every frame regardless.
+
+        if (AbyssGame::Paused()) {
+            Show(true);
+            if (!escape_armed) {
+                if (!Input::GetKey(Key::Escape)) escape_armed = true;
+            } else if (Input::GetKeyDown(Key::Escape)) {
+                if (detail_mode != DetailMode::Dashboard) {
+                    detail_mode = DetailMode::Dashboard;
+                    confirm_reset = false;
+                    return;
+                }
+                Resume();
+                return;
+            }
+            if (Input::GetKeyDown(Key::Up) || Input::GetKeyDown(Key::W)) {
+                selection = (selection + kEntryCount - 1) % kEntryCount;
+                detail_mode = DetailMode::Dashboard;
+                confirm_reset = false;
+            }
+            if (Input::GetKeyDown(Key::Down) || Input::GetKeyDown(Key::S)) {
+                selection = (selection + 1) % kEntryCount;
+                detail_mode = DetailMode::Dashboard;
+                confirm_reset = false;
+            }
+            {
+                float scroll = Input::GetAxis("Mouse ScrollWheel");
+                if (scroll < -0.1f) {
+                    selection = (selection + 1) % kEntryCount;
+                    detail_mode = DetailMode::Dashboard;
+                    confirm_reset = false;
+                } else if (scroll > 0.1f) {
+                    selection = (selection + kEntryCount - 1) % kEntryCount;
+                    detail_mode = DetailMode::Dashboard;
+                    confirm_reset = false;
+                }
+            }
+            if (Input::GetMouseButtonDown(1)) {
+                if (detail_mode != DetailMode::Dashboard) {
+                    detail_mode = DetailMode::Dashboard;
+                    confirm_reset = false;
+                } else {
+                    Resume();
+                }
+                return;
+            }
+            if (confirm_reset) {
+                if (Input::GetKeyDown(Key::Y) || Input::GetKeyDown(Key::Enter)) { ResetProfile(); return; }
+                if (Input::GetKeyDown(Key::N)) { confirm_reset = false; return; }
+            }
+            if (Input::GetKeyDown(Key::Enter) || Input::GetKeyDown(Key::Space) || Input::GetMouseButtonDown(0)) Activate();
+            return;
+        }
+
+        // Not paused — hide menu and handle open-on-ESC.
+        Show(false);
         if (Input::GetKeyDown(Key::Escape)) {
             if (AbyssGame::MapOpen()) AbyssGame::ToggleMap();
             if (AbyssGame::RelicCaseOpen()) AbyssGame::ToggleRelicCase();
             AbyssGame::SetPaused(true);
+            escape_armed = false;
             Show(true);
             return;
         }
-        Show(false);
-    }
-
-    void UpdateUnscaled(float /*raw_dt*/) override {
-        EnsureUi();
-        Show(true);
-
-        if (Input::GetKeyDown(Key::Escape)) {
-            if (detail_mode != DetailMode::Dashboard) {
-                detail_mode = DetailMode::Dashboard;
-                confirm_reset = false;
-                return;
-            }
-            Resume();
-            return;
-        }
-        if (Input::GetKeyDown(Key::Up) || Input::GetKeyDown(Key::W)) {
-            selection = (selection + kEntryCount - 1) % kEntryCount;
-            detail_mode = DetailMode::Dashboard;
-            confirm_reset = false;
-        }
-        if (Input::GetKeyDown(Key::Down) || Input::GetKeyDown(Key::S)) {
-            selection = (selection + 1) % kEntryCount;
-            detail_mode = DetailMode::Dashboard;
-            confirm_reset = false;
-        }
-        if (confirm_reset) {
-            if (Input::GetKeyDown(Key::Y) || Input::GetKeyDown(Key::Enter)) { ResetProfile(); return; }
-            if (Input::GetKeyDown(Key::N)) { confirm_reset = false; return; }
-        }
-        if (Input::GetKeyDown(Key::Enter) || Input::GetKeyDown(Key::Space)) Activate();
     }
 
 private:
@@ -69,6 +95,7 @@ private:
     int selection = 0;
     bool confirm_reset = false;
     bool ui_ready = false;
+    bool escape_armed = false;
     DetailMode detail_mode = DetailMode::Dashboard;
 
     static Entity Color(int r, int g, int b, int a = 255) {

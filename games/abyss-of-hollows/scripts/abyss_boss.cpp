@@ -82,22 +82,22 @@ public:
         telegraph_timer = Max(0.0f, telegraph_timer - dt);
         dash_timer = Max(0.0f, dash_timer - dt);
 
-        auto player = FindById(player_id);
-        if (!player) {
-            player = Find("AbyssPlayer");
-            if (player) player_id = player.Value("id", -1);
+        if (!_cached_player) {
+            _cached_player = FindById(player_id);
+            if (!_cached_player) { _cached_player = Find("AbyssPlayer"); if (_cached_player) player_id = _cached_player.Value("id", -1); }
         }
+        auto player = _cached_player;
 
-        auto shard_template = FindById(shard_template_id);
-        if (!shard_template) {
-            shard_template = Find("AbyssShardTemplate");
-            if (shard_template) shard_template_id = shard_template.Value("id", -1);
+        if (!_cached_shard_template) {
+            _cached_shard_template = FindById(shard_template_id);
+            if (!_cached_shard_template) { _cached_shard_template = Find("AbyssShardTemplate"); if (_cached_shard_template) shard_template_id = _cached_shard_template.Value("id", -1); }
         }
-        auto crawler_template = FindById(crawler_template_id);
-        if (!crawler_template) {
-            crawler_template = Find("AbyssCrawlerTemplate");
-            if (crawler_template) crawler_template_id = crawler_template.Value("id", -1);
+        auto shard_template = _cached_shard_template;
+        if (!_cached_crawler_template) {
+            _cached_crawler_template = FindById(crawler_template_id);
+            if (!_cached_crawler_template) { _cached_crawler_template = Find("AbyssCrawlerTemplate"); if (_cached_crawler_template) crawler_template_id = _cached_crawler_template.Value("id", -1); }
         }
+        auto crawler_template = _cached_crawler_template;
 
         float px = player ? GetX(player, Transform().X()) : Transform().X();
         float py = player ? GetY(player, Transform().Y()) : Transform().Y();
@@ -195,6 +195,11 @@ private:
     int shard_template_id = -1;
     int crawler_template_id = -1;
     int player_id = -1;
+    EntityRef _cached_player;
+    EntityRef _cached_shard_template;
+    EntityRef _cached_crawler_template;
+    EntityRef _cached_boss_bar;
+    EntityRef _cached_boss_title;
 
     Entity Rgba(int r, int g, int b, int a = 255) {
         Entity c = Entity::array();
@@ -234,12 +239,14 @@ private:
     }
 
     void RefreshBossHud() {
-        if (auto bar = Find("BossHealthBar")) {
+        if (!_cached_boss_bar) _cached_boss_bar = Find("BossHealthBar");
+        if (auto bar = _cached_boss_bar) {
             auto& p = bar["components"]["UIProgressBar"];
             p["max"] = (float)Max(1, entity ? entity.Value("max_hp", 100) : 100);
             p["value"] = (float)Max(0, hp);
         }
-        if (auto title = Find("BossHealthTitle")) {
+        if (!_cached_boss_title) _cached_boss_title = Find("BossHealthTitle");
+        if (auto title = _cached_boss_title) {
             const char* phase_name = phase == 0 ? "THE HOLLOW WARDEN" : phase == 1 ? "THE HOLLOW WARDEN  -  AWAKENED" : "THE HOLLOW WARDEN  -  LAST LIGHT";
             title["components"]["UIText"]["text"] = phase_name;
         }
@@ -460,9 +467,8 @@ private:
         if (defeated) return;
         defeated = true;
         PlayerPrefs::set_int("abyss_boss_defeated", 1);
-        if (auto bar = Find("BossHealthBar")) bar["active"] = false;
-        if (auto frame = Find("BossHealthFrame")) frame["active"] = false;
-        if (auto title = Find("BossHealthTitle")) title["active"] = false;
+        _cached_boss_bar = EntityRef();
+        _cached_boss_title = EntityRef();
         AbyssGame::MarkRoomCleared("Boss Sanctum");
         AbyssFx::Explosion(this, Transform().X(), Transform().Y(), AbyssFx::Color{255, 140, 90, 255}, 2.2f);
         AbyssFx::Explosion(this, Transform().X() - 30.0f, Transform().Y() - 20.0f, AbyssFx::Color{255, 90, 90, 255}, 1.6f);

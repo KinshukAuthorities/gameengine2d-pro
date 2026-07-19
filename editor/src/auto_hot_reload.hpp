@@ -525,6 +525,7 @@ private:
         std::string cmd = _msvc_x64_environment_prefix() + "cmake -S " + _quote(scripts_src)
                         + " -B " + _quote(_build_dir)
                         + " -DSCRIPTS_TARGET_PROJECT=" + _project
+                        + gameengine::toolchain::sdl2_cmake_arg(_project_root)
                         + " 2>&1";
         if (_run_with_lock_retry(cmd, target, "CMake reconfigure", 2) != 0) {
             Debug::log_warning("[AutoHotReload] cmake reconfigure failed while removing \"" +
@@ -568,6 +569,7 @@ private:
             std::string cmd = _msvc_x64_environment_prefix() + "cmake -S " + _quote(scripts_src)
                             + " -B " + _quote(_build_dir)
                             + " -DSCRIPTS_TARGET_PROJECT=" + _project
+                            + gameengine::toolchain::sdl2_cmake_arg(_project_root)
                             + " 2>&1";
             int rc = _run_with_lock_retry(cmd, target, "CMake configure", 2);
             if (rc != 0) {

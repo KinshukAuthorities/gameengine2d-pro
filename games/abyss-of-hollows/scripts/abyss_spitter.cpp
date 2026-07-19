@@ -41,12 +41,16 @@ public:
         state_time = Max(0.0f, state_time - dt);
         if (hp <= 0) { Die(); return; }
 
-        auto player = Find("AbyssPlayer");
+        if (!_cached_player) _cached_player = Find("AbyssPlayer");
+        auto player = _cached_player;
         const float dx = player ? GetX(player, Transform().X()) - Transform().X() : 99999.0f;
         const float dy = player ? GetY(player, Transform().Y()) - Transform().Y() : 0.0f;
         if (Abs(dx) > 1.0f) facing = dx < 0.0f ? -1.0f : 1.0f;
-        auto shard = FindById(shard_template_id);
-        if (!shard) { shard = Find("AbyssShardTemplate"); if (shard) shard_template_id = shard.Value("id", -1); }
+        if (!_cached_shard) {
+            _cached_shard = FindById(shard_template_id);
+            if (!_cached_shard) { _cached_shard = Find("AbyssShardTemplate"); if (_cached_shard) shard_template_id = _cached_shard.Value("id", -1); }
+        }
+        auto shard = _cached_shard;
 
         if (!(Network::IsClient() && !Network::IsHost())) RunBrain(dx, dy, shard, dt);
         ApplyVisuals();
@@ -64,6 +68,8 @@ private:
     float aim_x = 1.0f, aim_y = 0.0f;
     bool dying = false;
     string asset_dir_;
+    EntityRef _cached_player;
+    EntityRef _cached_shard;
 
     EntityRef FindById(int id) {
         if (id < 0) return EntityRef();

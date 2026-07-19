@@ -48,16 +48,16 @@ public:
         telegraph_timer = Max(0.0f, telegraph_timer - dt);
         hurt_lock = Max(0.0f, hurt_lock - dt);
 
-        auto player = FindById(player_id);
-        if (!player) {
-            player = Find("AbyssPlayer");
-            if (player) player_id = player.Value("id", -1);
+        if (!_cached_player) {
+            _cached_player = FindById(player_id);
+            if (!_cached_player) { _cached_player = Find("AbyssPlayer"); if (_cached_player) player_id = _cached_player.Value("id", -1); }
         }
-        auto bolt_template = FindById(bolt_template_id);
-        if (!bolt_template) {
-            bolt_template = Find("AbyssShardTemplate");
-            if (bolt_template) bolt_template_id = bolt_template.Value("id", -1);
+        auto player = _cached_player;
+        if (!_cached_bolt_template) {
+            _cached_bolt_template = FindById(bolt_template_id);
+            if (!_cached_bolt_template) { _cached_bolt_template = Find("AbyssShardTemplate"); if (_cached_bolt_template) bolt_template_id = _cached_bolt_template.Value("id", -1); }
         }
+        auto bolt_template = _cached_bolt_template;
 
         float px = player ? GetX(player, Transform().X()) : Transform().X();
         float py = player ? GetY(player, Transform().Y()) : Transform().Y();
@@ -108,6 +108,8 @@ private:
     bool pending_shot = false;
     float hurt_lock = 0.0f;
     float base_rotation = 0.0f;
+    EntityRef _cached_player;
+    EntityRef _cached_bolt_template;
 
     EntityRef FindById(int id) {
         if (id < 0) return EntityRef();

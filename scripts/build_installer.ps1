@@ -285,7 +285,13 @@ Copy-Tree (Join-Path $hubRelease 'assets') (Join-Path $stage 'assets')
 Copy-Tree (Join-Path $hubRelease 'templates') (Join-Path $stage 'templates')
 # The sample template must open with all of its native gameplay classes
 # registered. Stage only the final DLLs, never MSVC/CMake intermediates.
-$templateModules = Join-Path $root 'build\scripts_module_fast\Release'
+# The editor-owned scripts-module build is the authoritative Release output.
+# Older checkout layouts used build\scripts_module_fast\Release; keep that
+# location only as a backwards-compatible fallback for pre-existing builds.
+$templateModules = Join-Path $root 'build\editor\scripts_module\Release'
+if (-not (Test-Path -LiteralPath $templateModules -PathType Container)) {
+    $templateModules = Join-Path $root 'build\scripts_module_fast\Release'
+}
 $templateModuleStage = Join-Path $stage 'build\scripts_module_fast\abyss_of_hollows\Release'
 New-Item -ItemType Directory -Path $templateModuleStage -Force | Out-Null
 $templateSourceNames = Get-ChildItem -LiteralPath (Join-Path $root 'games\abyss-of-hollows\scripts') -Filter '*.cpp' -File |

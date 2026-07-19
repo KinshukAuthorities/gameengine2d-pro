@@ -84,6 +84,18 @@ public:
     void Update(float dt) override {
         if (!EnsureLocalAvatar()) return;
 
+        EnsurePauseRuntime();
+
+        // When paused (PlayerPrefs flag, since Time::bind_state isn't wired
+        // into RegisterAllScripts so the engine never sees time_scale = 0),
+        // freeze the player so the pause controller can own input.
+        if (AbyssGame::Paused()) {
+            auto rb = Rigidbody();
+            if (rb) rb.SetVelocity({0.0f, 0.0f});
+            UpdateCameraShake(0.0f);
+            return;
+        }
+
         if (!AbyssGame::GameplayEnabled()) {
             auto rb = Rigidbody();
             if (rb) rb.SetVelocity({0.0f, 0.0f});
@@ -108,12 +120,6 @@ public:
         auto rb = Rigidbody();
         if (!rb) return;
 
-        // Escape belongs exclusively to AbyssPauseController.  Handling it
-        // here as well races that controller in the same script frame: this
-        // behaviour pauses first, then the pause-safe controller receives
-        // the very same key edge and immediately resumes.  Keeping a single
-        // owner makes Escape a reliable open/resume toggle.
-
         bool assist = AbyssGame::CombatAssist();
 
         // Tab is deliberately reserved for the room map and Q for parry.  The
@@ -123,12 +129,11 @@ public:
         if (Input::GetKeyDown(Key::Tab)) {
             if (AbyssGame::RelicCaseOpen()) AbyssGame::ToggleRelicCase();
             AbyssGame::ToggleMap();
-            RefreshHud();
+            hud_map_presentation_built = false;
         }
         if (Input::GetKeyDown(Key::I)) {
             if (AbyssGame::MapOpen()) AbyssGame::ToggleMap();
             AbyssGame::ToggleRelicCase();
-            RefreshHud();
         }
 
         if (ConsumeHitstop(dt)) {
@@ -181,7 +186,12 @@ public:
             if (combo_window <= 0.0f) combo_step = 1;
         }
 
-        int current_hit_signal = PlayerPrefs::get_int("abyss_slash_hit_signal", 0);
+        ++_hit_signal_check_frames;
+        int current_hit_signal = last_seen_hit_signal;
+        if (_hit_signal_check_frames >= 3) {
+            _hit_signal_check_frames = 0;
+            current_hit_signal = PlayerPrefs::get_int("abyss_slash_hit_signal", 0);
+        }
         if (current_hit_signal != last_seen_hit_signal) {
             int new_hits = current_hit_signal - last_seen_hit_signal;
             last_seen_hit_signal = current_hit_signal;
@@ -199,7 +209,10 @@ public:
         // A downward blade strike is a real traversal/combat tool rather
         // than a cosmetic direction. The transient hitbox writes a counter
         // on confirmed contact, then the player gets a controlled rebound.
-        const int downstrike_signal = PlayerPrefs::get_int("abyss_downstrike_signal", 0);
+        int downstrike_signal = last_downstrike_signal;
+        if (_hit_signal_check_frames == 0) {
+            downstrike_signal = PlayerPrefs::get_int("abyss_downstrike_signal", 0);
+        }
         if (downstrike_signal != last_downstrike_signal) {
             last_downstrike_signal = downstrike_signal;
             // `grounded` is calculated later in the movement pass. Query the
@@ -212,7 +225,10 @@ public:
                 energy = Min(max_energy, energy + 0.45f);
             }
         }
-        const int hitstop_signal = PlayerPrefs::get_int("abyss_hitstop_signal", 0);
+        int hitstop_signal = last_hitstop_signal;
+        if (_hit_signal_check_frames == 0) {
+            hitstop_signal = PlayerPrefs::get_int("abyss_hitstop_signal", 0);
+        }
         if (hitstop_signal != last_hitstop_signal) {
             last_hitstop_signal = hitstop_signal;
             hitstop_timer = Max(hitstop_timer, 0.028f);
@@ -228,7 +244,8 @@ public:
             if (reload_timer <= 0.0f) {
                 reloading = false;
                 ammo = max_ammo;
-                RefreshHud();
+                // Covered by the unconditional RefreshHud() at the end of
+                // this same Update() — see the Tab/I handling above.
             }
         }
 
@@ -511,7 +528,11 @@ public:
         RefreshHud();
 
         // Keep the save profile up-to-date for checkpoints and room reloads.
-        AbyssGame::SetFocus(energy);
+        // Throttled: only write when value actually changes (avoids per-frame PlayerPrefs I/O).
+        if (energy != _last_saved_focus) {
+            AbyssGame::SetFocus(energy);
+            _last_saved_focus = energy;
+        }
     }
 
     void OnTriggerEnter2D(EntityRef other) override { if (!EnsureLocalAvatar()) return; DamageFromContact(other); }
@@ -604,6 +625,55 @@ private:
     int hud_ammo_text_id = -1;
     int hud_combo_text_id = -1;
 
+    // RefreshMapPresentation() walks 7 map regions doing ~5 Find() calls each
+    // (each with a freshly-concatenated string key) — ~35 linear entity
+    // scans. It used to run unconditionally every single Update(), whether
+    // or not the map was even open or anything about it had changed. These
+    // cache the last-built state so the rebuild only happens on an actual
+    // transition (map opened/closed, room changed, or a region newly
+    // discovered), which is what was making frames noticeably heavier.
+    bool hud_map_presentation_built = false;
+    bool hud_map_last_open = false;
+    string hud_map_last_room;
+    unsigned hud_map_last_visited_mask = 0;
+
+    // Cached HUD EntityRefs — avoids O(n) Find/FindById scans every frame
+    EntityRef _hud_health;
+    EntityRef _hud_health_bar;
+    EntityRef _hud_energy;
+    EntityRef _hud_energy_bar;
+    EntityRef _hud_room;
+    EntityRef _hud_ammo;
+    EntityRef _hud_arc_pips;
+    EntityRef _hud_relic_strip;
+    EntityRef _hud_combo;
+    EntityRef _hud_hint;
+    EntityRef _hud_relic_panel;
+    EntityRef _hud_relic_text;
+    EntityRef _hud_map_panel;
+    EntityRef _hud_map_text;
+    EntityRef _hud_shade;
+    EntityRef _hud_camera;
+
+    // HUD dirty-tracking — skip string rebuilds when values haven't changed
+    int _hud_last_hp = -1;
+    int _hud_last_max_hp = -1;
+    float _hud_last_energy = -1.0f;
+    float _hud_last_max_energy = -1.0f;
+    int _hud_last_ammo = -1;
+    int _hud_last_max_ammo = -1;
+    int _hud_last_hit_streak = -1;
+    string _hud_last_relic_line;
+    string _hud_last_hint_text;
+    string _hud_last_relic_case_text;
+    string _hud_last_room_name;
+    int _hud_last_combo_assist = -1;
+    int _hud_last_screen_shake = -1;
+    int _hud_last_wall_jump = -1;
+    int _upgrade_check_counter = 0;
+    int _hit_signal_check_frames = 0;
+    float _last_saved_focus = -1.0f;
+
     int hit_streak = 0;
     float hit_streak_window = 0.0f;
     float hit_streak_window_time = 1.1f;
@@ -629,6 +699,29 @@ private:
 
 
     bool EnsureLocalAvatar() {
+        if (local_initialized) {
+            if (is_remote_avatar) return false;
+            if (!Find("HudHealth")) {
+                local_initialized = false;
+                _hud_health = EntityRef();
+                _hud_health_bar = EntityRef();
+                _hud_energy = EntityRef();
+                _hud_energy_bar = EntityRef();
+                _hud_room = EntityRef();
+                _hud_ammo = EntityRef();
+                _hud_arc_pips = EntityRef();
+                _hud_relic_strip = EntityRef();
+                _hud_combo = EntityRef();
+                _hud_hint = EntityRef();
+                _hud_relic_panel = EntityRef();
+                _hud_relic_text = EntityRef();
+                _hud_map_panel = EntityRef();
+                _hud_map_text = EntityRef();
+                _hud_shade = EntityRef();
+                _hud_camera = EntityRef();
+                hud_map_presentation_built = false;
+            }
+        }
         if (local_initialized) return !is_remote_avatar;
 
         bool in_networked_match = Network::IsHost() || Network::IsClient();
@@ -787,6 +880,28 @@ private:
         EnsureHudUpgradeV3();
         ConfigureHudLayout();
         EnsurePauseRuntime();
+
+        {
+            bool boss_exists = false;
+            for (const auto& e : entities()) {
+                if (e.value("name", string()) == "AbyssBoss" ||
+                    e.value("name", string()) == "Boss") {
+                    boss_exists = true;
+                    break;
+                }
+            }
+            if (!boss_exists) {
+                const string hud_names[] = {"BossHealthBar", "BossHealthFrame", "BossHealthTitle"};
+                for (const string& n : hud_names) {
+                    for (size_t i = 0; i < entities().size(); ++i) {
+                        if (entities()[i].value("name", string()) == n) {
+                            entities().erase(entities().begin() + (int)i);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         if (auto cam = FindById(camera_id)) {
             if (cam.Contains("components") && cam["components"].contains("Camera2D")) {
@@ -1075,12 +1190,19 @@ private:
     }
 
     void ApplyPersistentUpgrades() {
+        // Upgrades only change at pickup events (rare). Only check PlayerPrefs
+        // every 30 frames to avoid 4 I/O hits per frame during gameplay.
+        ++_upgrade_check_counter;
+        if (_upgrade_check_counter < 30) return;
+        _upgrade_check_counter = 0;
+
         const int heart = AbyssGame::UpgradeValue("heart");
         const int focus = AbyssGame::UpgradeValue("focus");
         const int arc = AbyssGame::UpgradeValue("arc");
         const int base_hp = AbyssGame::CombatAssist() ? 9 : 8;
-        const float base_focus = AbyssGame::CombatAssist() ? 7.0f : 6.0f;
-        const int base_arc = AbyssGame::CombatAssist() ? 8 : 6;
+        const int ca = AbyssGame::CombatAssist() ? 1 : 0;
+        const float base_focus = ca ? 7.0f : 6.0f;
+        const int base_arc = ca ? 8 : 6;
         if (heart != applied_heart_upgrade) {
             const int previous = max_hp;
             max_hp = base_hp + heart;
@@ -1306,10 +1428,12 @@ private:
     }
 
     void UpdateCameraShake(float dt) {
-        auto cam = FindById(camera_id);
-        if (!cam) cam = Find("Camera");
-        if (!cam || !cam.Contains("components") || !cam["components"].contains("Camera2D")) return;
-        auto c = cam["components"]["Camera2D"];
+        if (!_hud_camera) {
+            _hud_camera = FindById(camera_id);
+            if (!_hud_camera) _hud_camera = Find("Camera");
+        }
+        if (!_hud_camera || !_hud_camera.Contains("components") || !_hud_camera["components"].contains("Camera2D")) return;
+        auto c = _hud_camera["components"]["Camera2D"];
 
         shake_mag = Max(0.0f, shake_mag - shake_mag * Min(1.0f, dt * 16.0f) - dt * 0.25f);
         shake_seed_t += dt;
@@ -1566,30 +1690,40 @@ private:
     }
 
     void EnsurePauseRuntime() {
-        // Scene JSON now attaches AbyssPauseController directly, but an
-        // already-open scene cannot gain a ScriptComponent from disk during a
-        // hot reload. Add exactly one tiny runtime host in that case.
-        for (const auto& node : entities()) {
-            if (!node.contains("components")) continue;
-            for (const char* kind : {"Script", "ScriptComponent"}) {
-                if (!node["components"].contains(kind)) continue;
-                const auto& scripts = node["components"][kind].value("scripts", Entity::array());
-                if (!scripts.is_array()) continue;
-                for (const auto& script : scripts) {
-                    if (!script.is_string()) continue;
-                    const string name = script.get<string>();
-                    if (name == "AbyssPauseController" || name == "abyss_pause_controller") return;
+        // Some maps embed an AbyssPauseController on their own (possibly
+        // inactive or broken) entity.  Always remove it from every entity
+        // except the player, then place it on the player, so UpdateUnscaled
+        // is reliably called on a known-good entity.
+        bool need_add = true;
+        if (entity) {
+            auto has_on_player = [&]() -> bool {
+                auto& comps = entity["components"];
+                for (const char* comp : {"ScriptComponent", "Script"}) {
+                    if (!comps.contains(comp)) continue;
+                    for (const auto& s : comps[comp].value("scripts", Entity::array()))
+                        if (s.is_string() && (s.get<string>() == "AbyssPauseController" || s.get<string>() == "abyss_pause_controller"))
+                            return true;
+                }
+                return false;
+            };
+            if (has_on_player()) return;
+            need_add = false;
+            auto& comps = entity["components"];
+            for (const char* comp : {"ScriptComponent", "Script"}) {
+                if (comps.contains(comp)) {
+                    auto& scripts = comps[comp]["scripts"];
+                    scripts.push_back("AbyssPauseController");
+                    need_add = true;
+                    break;
                 }
             }
+            if (!need_add) {
+                comps["ScriptComponent"] = Entity::object();
+                comps["ScriptComponent"]["scripts"] = Entity::array();
+                comps["ScriptComponent"]["scripts"].push_back("AbyssPauseController");
+                need_add = true;
+            }
         }
-        Entity host = Entity::object();
-        host["id"] = NextHudId(); host["name"] = "AbyssPauseRuntime"; host["active"] = true;
-        host["children"] = Entity::array(); host["components"] = Entity::object();
-        host["components"]["Transform"] = {{"x",0.0},{"y",0.0},{"rotation",0.0},{"scale_x",1.0},{"scale_y",1.0}};
-        host["components"]["ScriptComponent"] = Entity::object();
-        host["components"]["ScriptComponent"]["scripts"] = Entity::array();
-        host["components"]["ScriptComponent"]["scripts"].push_back("AbyssPauseController");
-        entities().push_back(std::move(host));
     }
 
     // Hot reload can run while the earlier V2 HUD already exists in the live
@@ -1809,6 +1943,25 @@ private:
 
     void RefreshMapPresentation(bool map_open) {
         const string keys[] = {"home", "verdant", "crystal", "flooded", "deep", "ascent", "sanctum"};
+
+        const string current_room = AbyssGame::CurrentRoom();
+        unsigned visited_mask = 0;
+        for (int i = 0; i < 7; ++i)
+            if (MapRegionVisited(keys[i])) visited_mask |= (1u << i);
+
+        // Nothing that affects any node's color/visibility/text has changed
+        // since the last rebuild, so skip the ~35 Find() calls below.
+        if (hud_map_presentation_built &&
+            map_open == hud_map_last_open &&
+            current_room == hud_map_last_room &&
+            visited_mask == hud_map_last_visited_mask) {
+            return;
+        }
+        hud_map_presentation_built = true;
+        hud_map_last_open = map_open;
+        hud_map_last_room = current_room;
+        hud_map_last_visited_mask = visited_mask;
+
         for (int i = 0; i < 7; ++i) {
             const string& key = keys[i];
             const bool current = IsCurrentMapRegion(key);
@@ -1844,97 +1997,112 @@ private:
     }
 
     void RefreshHud() {
-        auto health = FindById(health_text_id);
-        if (!health) {
-            health = Find("HudHealth");
-            if (health) health_text_id = health.Value("id", -1);
+        // Cache all HUD EntityRefs on first call — avoids O(n) Find scans every frame
+        if (!_hud_health) _hud_health = Find("HudHealth");
+        if (!_hud_health_bar) _hud_health_bar = Find("HudHealthBar");
+        if (!_hud_energy) _hud_energy = Find("HudEnergy");
+        if (!_hud_energy_bar) _hud_energy_bar = Find("HudFocusBar");
+        if (!_hud_room) _hud_room = Find("HudRoom");
+        if (!_hud_ammo) _hud_ammo = Find("HudAmmo");
+        if (!_hud_arc_pips) _hud_arc_pips = Find("HudArcPips");
+        if (!_hud_relic_strip) _hud_relic_strip = Find("HudRelicStrip");
+        if (!_hud_combo) _hud_combo = Find("HudCombo");
+        if (!_hud_hint) _hud_hint = Find("HudHint");
+        if (!_hud_shade) _hud_shade = Find("AbyssOverlayShade");
+        if (!_hud_relic_panel) _hud_relic_panel = Find("RelicCasePanel");
+        if (!_hud_relic_text) _hud_relic_text = Find("RelicCaseText");
+        if (!_hud_map_panel) _hud_map_panel = Find("AbyssMapPanel");
+        if (!_hud_map_text) _hud_map_text = Find("AbyssMapText");
+
+        // ── Health ─────────────────────────────────────────────────────
+        if (_hud_health && _hud_health.Contains("components") && _hud_health["components"].contains("UIText")) {
+            int v = Max(0, hp);
+            if (v != _hud_last_hp || max_hp != _hud_last_max_hp) {
+                _hud_health["components"]["UIText"]["text"] = "VITALITY  " + ToStr(v) + " / " + ToStr(max_hp);
+                _hud_last_hp = v;
+                _hud_last_max_hp = max_hp;
+            }
         }
-        if (health && health.Contains("components") && health["components"].contains("UIText")) {
-            health["components"]["UIText"]["text"] = "VITALITY  " + ToStr(Max(0, hp)) + " / " + ToStr(max_hp);
-            health["components"]["UIText"]["pos_x"] = 32;
-            health["components"]["UIText"]["pos_y"] = -28;
-            health["components"]["UIText"]["font_size"] = 15;
-        }
-        if (auto health_bar = Find("HudHealthBar")) {
-            auto& bar = health_bar["components"]["UIProgressBar"];
+        if (_hud_health_bar) {
+            auto& bar = _hud_health_bar["components"]["UIProgressBar"];
             bar["max"] = (float)max_hp; bar["value"] = (float)Max(0, hp);
         }
 
-        auto energy_t = FindById(energy_text_id);
-        if (!energy_t) {
-            energy_t = Find("HudEnergy");
-            if (energy_t) energy_text_id = energy_t.Value("id", -1);
+        // ── Energy ─────────────────────────────────────────────────────
+        if (_hud_energy && _hud_energy.Contains("components") && _hud_energy["components"].contains("UIText")) {
+            int v = (int)Round(energy);
+            int mv = (int)max_energy;
+            if (v != (int)_hud_last_energy || mv != (int)_hud_last_max_energy) {
+                _hud_energy["components"]["UIText"]["text"] = "FOCUS  " + ToStr(v) + " / " + ToStr(mv);
+                _hud_last_energy = (float)v;
+                _hud_last_max_energy = (float)mv;
+            }
         }
-        if (energy_t && energy_t.Contains("components") && energy_t["components"].contains("UIText")) {
-            energy_t["components"]["UIText"]["text"] = "FOCUS  " + ToStr((int)Round(energy)) + " / " + ToStr((int)max_energy);
-            energy_t["components"]["UIText"]["pos_x"] = 32;
-            energy_t["components"]["UIText"]["pos_y"] = -60;
-            energy_t["components"]["UIText"]["font_size"] = 15;
-        }
-        if (auto focus_bar = Find("HudFocusBar")) {
-            auto& bar = focus_bar["components"]["UIProgressBar"];
+        if (_hud_energy_bar) {
+            auto& bar = _hud_energy_bar["components"]["UIProgressBar"];
             bar["max"] = max_energy; bar["value"] = energy;
         }
 
-        auto room = FindById(room_text_id);
-        if (!room) {
-            room = Find("HudRoom");
-            if (room) room_text_id = room.Value("id", -1);
-        }
-        if (room && room.Contains("components") && room["components"].contains("UIText")) {
-            float popup_timer = room.Value("_popup_timer", 0.0f);
+        // ── Room name / popup ──────────────────────────────────────────
+        if (_hud_room && _hud_room.Contains("components") && _hud_room["components"].contains("UIText")) {
+            float popup_timer = _hud_room.Value("_popup_timer", 0.0f);
             if (popup_timer > 0.0f) {
-                string popup = room.Value("_popup_text", string());
-                room["components"]["UIText"]["text"] = popup;
-                auto& c = room["components"]["UIText"];
+                string popup = _hud_room.Value("_popup_text", string());
+                _hud_room["components"]["UIText"]["text"] = popup;
+                auto& c = _hud_room["components"]["UIText"];
                 c["color"] = Entity::array();
                 c["color"].push_back(255);
                 c["color"].push_back(220);
                 c["color"].push_back(100);
                 c["color"].push_back(255);
                 float new_timer = popup_timer - (float)Time::delta_time;
-                room["_popup_timer"] = new_timer > 0.0f ? new_timer : 0.0f;
+                _hud_room["_popup_timer"] = new_timer > 0.0f ? new_timer : 0.0f;
             } else {
                 string area = AbyssGame::CurrentRoom();
-                room["components"]["UIText"]["text"] = area;
-                room->erase("_popup_text");
+                if (area != _hud_last_room_name) {
+                    _hud_room["components"]["UIText"]["text"] = area;
+                    _hud_last_room_name = area;
+                }
+                _hud_room->erase("_popup_text");
             }
         }
 
-        auto ammo_t = FindById(hud_ammo_text_id);
-        if (!ammo_t) {
-            ammo_t = Find("HudAmmo");
-            if (ammo_t) hud_ammo_text_id = ammo_t.Value("id", -1);
+        // ── Ammo ───────────────────────────────────────────────────────
+        if (_hud_ammo && _hud_ammo.Contains("components") && _hud_ammo["components"].contains("UIText")) {
+            if (ammo != _hud_last_ammo || max_ammo != _hud_last_max_ammo) {
+                _hud_ammo["components"]["UIText"]["text"] = "Arc " + ToStr(ammo) + " / " + ToStr(max_ammo);
+                _hud_last_ammo = ammo;
+                _hud_last_max_ammo = max_ammo;
+            }
         }
-        if (ammo_t && ammo_t.Contains("components") && ammo_t["components"].contains("UIText")) {
-            auto& txt = ammo_t["components"]["UIText"];
-            txt["text"] = "Arc " + ToStr(ammo) + " / " + ToStr(max_ammo);
-        }
-        if (auto arc = Find("HudArcPips")) {
-            if (arc.Contains("components") && arc["components"].contains("UIText")) {
+        if (_hud_arc_pips && _hud_arc_pips.Contains("components") && _hud_arc_pips["components"].contains("UIText")) {
+            if (ammo != _hud_last_ammo || max_ammo != _hud_last_max_ammo) {
                 string cells;
                 for (int i = 0; i < max_ammo; ++i) cells += i < ammo ? "[+ ] " : "[- ] ";
-                arc["components"]["UIText"]["text"] = "ARC CELLS  " + cells;
-            }
-        }
-        if (auto relic_strip = Find("HudRelicStrip")) {
-            if (relic_strip.Contains("components") && relic_strip["components"].contains("UIText")) {
-                relic_strip["components"]["UIText"]["text"] =
-                    "BLADE  " + AbyssGame::EquippedRelic("blade") + "\n" +
-                    "ARC  " + AbyssGame::EquippedRelic("arc") + "   •   WARD  " + AbyssGame::EquippedRelic("ward");
+                _hud_arc_pips["components"]["UIText"]["text"] = "ARC CELLS  " + cells;
             }
         }
 
-        auto combo_t = FindById(hud_combo_text_id);
-        if (!combo_t) {
-            combo_t = Find("HudCombo");
-            if (combo_t) hud_combo_text_id = combo_t.Value("id", -1);
+        // ── Relic strip (expensive — 4 EquippedRelic PlayerPrefs hits) ─
+        if (_hud_relic_strip && _hud_relic_strip.Contains("components") && _hud_relic_strip["components"].contains("UIText")) {
+            string line = "BLADE  " + AbyssGame::EquippedRelic("blade") + "\n" +
+                          "ARC  " + AbyssGame::EquippedRelic("arc") + "   •   WARD  " + AbyssGame::EquippedRelic("ward");
+            if (line != _hud_last_relic_line) {
+                _hud_relic_strip["components"]["UIText"]["text"] = line;
+                _hud_last_relic_line = line;
+            }
         }
-        if (combo_t && combo_t.Contains("components") && combo_t["components"].contains("UIText")) {
-            auto& txt = combo_t["components"]["UIText"];
+
+        // ── Combo ──────────────────────────────────────────────────────
+        if (_hud_combo && _hud_combo.Contains("components") && _hud_combo["components"].contains("UIText")) {
+            auto& txt = _hud_combo["components"]["UIText"];
             bool show = hit_streak_window > 0.0f && hit_streak >= 2;
+            bool streak_changed = hit_streak != _hud_last_hit_streak;
             if (show) {
-                txt["text"] = "Combo x" + ToStr(hit_streak);
+                if (streak_changed) {
+                    txt["text"] = "Combo x" + ToStr(hit_streak);
+                    _hud_last_hit_streak = hit_streak;
+                }
                 int base_size = hit_streak >= combo_max ? 22 : 18;
                 int pop_size = base_size;
                 if (combo_pop_timer > 0.0f) {
@@ -1953,72 +2121,76 @@ private:
                     txt["color"] = vector<int>{255, 214, 120, 255};
                 }
             } else {
-                txt["text"] = "";
+                if (streak_changed || _hud_last_hit_streak >= 2) {
+                    txt["text"] = "";
+                    _hud_last_hit_streak = hit_streak;
+                }
             }
         }
 
-        auto hint = FindById(hint_text_id);
-        if (!hint) {
-            hint = Find("HudHint");
-            if (hint) hint_text_id = hint.Value("id", -1);
-        }
-        if (hint && hint.Contains("components") && hint["components"].contains("UIText")) {
-            float interaction_flash = hint.Value("_interaction_flash", 0.0f);
+        // ── Hint text ──────────────────────────────────────────────────
+        if (_hud_hint && _hud_hint.Contains("components") && _hud_hint["components"].contains("UIText")) {
+            float interaction_flash = _hud_hint.Value("_interaction_flash", 0.0f);
             if (interaction_flash > 0.0f) {
-                hint["_interaction_flash"] = Max(0.0f, interaction_flash - (float)Time::delta_time);
-                hint["components"]["UIText"]["text"] = hint.Value("_interaction_text", string("F  •  interact"));
-            } else if (AbyssGame::MapOpen()) {
-                // The full overlay owns map instructions; never leave the
-                // old row of debug-like region text visible underneath it.
-                hint["components"]["UIText"]["text"] = "";
-            } else if (AbyssGame::RelicCaseOpen()) {
-                hint["components"]["UIText"]["text"] = "I  close Relic Case";
-            } else if (AbyssGame::MapOpen()) {
-                hint["components"]["UIText"]["text"] =
-                    "MAP  •  Home " + string(AbyssGame::RoomVisited("Home Hollow") ? "[x]" : "[ ]") +
-                    "  Verdant " + string(AbyssGame::RoomVisited("Verdant Hollow") ? "[x]" : "[ ]") +
-                    "  Crystal " + string(AbyssGame::RoomVisited("Crystal Hall") ? "[x]" : "[ ]") +
-                    "  Flooded " + string(AbyssGame::RoomVisited("Flooded Ruins") ? "[x]" : "[ ]") +
-                    "  Deep " + string(AbyssGame::RoomVisited("Deep Mines") ? "[x]" : "[ ]") +
-                    "  Ascent " + string(AbyssGame::RoomVisited("The Ascent") ? "[x]" : "[ ]") +
-                    "  Sanctum " + string(AbyssGame::RoomVisited("Boss Sanctum") ? "[x]" : "[ ]") + "  •  Tab close";
+                _hud_hint["_interaction_flash"] = Max(0.0f, interaction_flash - (float)Time::delta_time);
+                _hud_hint["components"]["UIText"]["text"] = _hud_hint.Value("_interaction_text", string("F  •  interact"));
             } else {
-                // Keep the keyboard-first combat contract visible until the
-                // player has internalised it; this is a showcase build and
-                // judges should never have to guess how Blade, Arc, parry or
-                // the pause/map layers are reached.
-                hint["components"]["UIText"]["text"] =
-                    AbyssGame::WallJumpUnlocked()
-                        ? "Z Blade  X Arc  Shift Dash  Q Parry  E Focus   |   Tab Map  I Relics  Esc Pause   •   Wall Jump ready"
-                        : "Z Blade  X Arc  Shift Dash  Q Parry  E Focus   |   Tab Map  I Relics  Esc Pause";
+                string new_text;
+                if (AbyssGame::MapOpen()) {
+                    new_text = "";
+                } else if (AbyssGame::RelicCaseOpen()) {
+                    new_text = "I  close Relic Case";
+                } else if (AbyssGame::MapOpen()) {
+                    new_text = "MAP  •  Home " + string(AbyssGame::RoomVisited("Home Hollow") ? "[x]" : "[ ]") +
+                               "  Verdant " + string(AbyssGame::RoomVisited("Verdant Hollow") ? "[x]" : "[ ]") +
+                               "  Crystal " + string(AbyssGame::RoomVisited("Crystal Hall") ? "[x]" : "[ ]") +
+                               "  Flooded " + string(AbyssGame::RoomVisited("Flooded Ruins") ? "[x]" : "[ ]") +
+                               "  Deep " + string(AbyssGame::RoomVisited("Deep Mines") ? "[x]" : "[ ]") +
+                               "  Ascent " + string(AbyssGame::RoomVisited("The Ascent") ? "[x]" : "[ ]") +
+                               "  Sanctum " + string(AbyssGame::RoomVisited("Boss Sanctum") ? "[x]" : "[ ]") + "  •  Tab close";
+                } else {
+                    bool wj = AbyssGame::WallJumpUnlocked();
+                    if (wj != (_hud_last_wall_jump != 0)) {
+                        new_text = wj
+                            ? "Z Blade  X Arc  Shift Dash  Q Parry  E Focus   |   Tab Map  I Relics  Esc Pause   •   Wall Jump ready"
+                            : "Z Blade  X Arc  Shift Dash  Q Parry  E Focus   |   Tab Map  I Relics  Esc Pause";
+                        _hud_last_wall_jump = wj ? 1 : 0;
+                    } else {
+                        new_text = _hud_last_hint_text;
+                    }
+                }
+                if (new_text != _hud_last_hint_text) {
+                    _hud_hint["components"]["UIText"]["text"] = new_text;
+                    _hud_last_hint_text = new_text;
+                }
             }
         }
 
-        auto relic_panel = Find("RelicCasePanel");
-        auto relic_text = Find("RelicCaseText");
+        // ── Overlays ───────────────────────────────────────────────────
         bool relic_open = AbyssGame::RelicCaseOpen();
         const bool map_open = AbyssGame::MapOpen();
-        if (auto shade = Find("AbyssOverlayShade")) shade["active"] = relic_open || map_open;
-        if (relic_panel) relic_panel["active"] = relic_open;
-        if (relic_text) {
-            relic_text["active"] = relic_open;
-            if (relic_text.Contains("components") && relic_text["components"].contains("UIText")) {
-                relic_text["components"]["UIText"]["text"] =
-                    "RELIC CASE\n\nBLADE SIGIL   " + AbyssGame::EquippedRelic("blade") +
-                    "\nARC CORE      " + AbyssGame::EquippedRelic("arc") +
-                    "\nMOBILITY     " + AbyssGame::EquippedRelic("mobility") +
-                    "\nWARD CHARM   " + AbyssGame::EquippedRelic("ward") +
-                    "\n\nCollect relics in cleared rooms.  I closes this case.";
+        if (_hud_shade) _hud_shade["active"] = relic_open || map_open;
+        if (_hud_relic_panel) _hud_relic_panel["active"] = relic_open;
+        if (_hud_relic_text) {
+            _hud_relic_text["active"] = relic_open;
+            if (_hud_relic_text.Contains("components") && _hud_relic_text["components"].contains("UIText")) {
+                string text = "RELIC CASE\n\nBLADE SIGIL   " + AbyssGame::EquippedRelic("blade") +
+                              "\nARC CORE      " + AbyssGame::EquippedRelic("arc") +
+                              "\nMOBILITY     " + AbyssGame::EquippedRelic("mobility") +
+                              "\nWARD CHARM   " + AbyssGame::EquippedRelic("ward") +
+                              "\n\nCollect relics in cleared rooms.  I closes this case.";
+                if (text != _hud_last_relic_case_text) {
+                    _hud_relic_text["components"]["UIText"]["text"] = text;
+                    _hud_last_relic_case_text = text;
+                }
             }
         }
 
-        auto map_panel = Find("AbyssMapPanel");
-        auto map_text = Find("AbyssMapText");
-        if (map_panel) map_panel["active"] = map_open;
-        if (map_text) {
-            map_text["active"] = map_open;
-            if (map_text.Contains("components") && map_text["components"].contains("UIText"))
-                map_text["components"]["UIText"]["text"] = "TAB  close map      I  relic case      Amber marks your current route";
+        if (_hud_map_panel) _hud_map_panel["active"] = map_open;
+        if (_hud_map_text) {
+            _hud_map_text["active"] = map_open;
+            if (_hud_map_text.Contains("components") && _hud_map_text["components"].contains("UIText"))
+                _hud_map_text["components"]["UIText"]["text"] = "TAB  close map      I  relic case      Amber marks your current route";
         }
         RefreshMapPresentation(map_open);
     }

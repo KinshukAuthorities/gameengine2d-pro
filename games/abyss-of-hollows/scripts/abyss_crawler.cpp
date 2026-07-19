@@ -53,7 +53,8 @@ public:
         flash_time = Max(0.0f, flash_time - dt);
         if (hp <= 0) { Die(); return; }
 
-        auto player = Find("AbyssPlayer");
+        if (!_cached_player) _cached_player = Find("AbyssPlayer");
+        auto player = _cached_player;
         const float dx = player ? GetX(player, Transform().X()) - Transform().X() : 99999.0f;
         const float dy = player ? GetY(player, Transform().Y()) - Transform().Y() : 0.0f;
         if (Abs(dx) > 2.0f) facing = dx < 0.0f ? -1.0f : 1.0f;
@@ -74,6 +75,7 @@ private:
     float facing = 1.0f, state_time = 0.0f, attack_cd = 0.0f;
     float damage_lock = 0.0f, flash_time = 0.0f;
     bool dying = false;
+    EntityRef _cached_player;
 
     static float GetX(EntityRef e, float fallback) {
         return e && e.Contains("components") && e["components"].contains("Transform")

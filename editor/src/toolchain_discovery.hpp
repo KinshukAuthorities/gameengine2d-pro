@@ -156,6 +156,27 @@ inline fs::path msbuild() {
     return {};
 }
 
+inline fs::path sdl2_root_dir(const fs::path& engine_root = {}) {
+    for (const char* var : {"SDL2_ROOT", "SDL2_DIR"}) {
+        if (const fs::path from_env = environment_path(var);
+            !from_env.empty() && fs::exists(from_env / "include" / "SDL2" / "SDL.h"))
+            return from_env;
+    }
+    if (!engine_root.empty()) {
+        const fs::path local = engine_root / "third_party" / "sdl2";
+        if (fs::exists(local / "include" / "SDL2" / "SDL.h"))
+            return local;
+    }
+    return {};
+}
+
+inline std::string sdl2_cmake_arg(const fs::path& engine_root = {}) {
+    const fs::path sdl2 = sdl2_root_dir(engine_root);
+    if (!sdl2.empty())
+        return " -DSDL2_ROOT_DIR=\"" + sdl2.string() + "\"";
+    return {};
+}
+
 inline std::string host_x64_environment_prefix() {
 #if defined(_WIN32)
     if (const fs::path command = vsdevcmd(); !command.empty()) {

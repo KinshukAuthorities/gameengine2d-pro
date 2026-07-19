@@ -3,8 +3,6 @@
     {
       "active": true,
       "children": [],
-      "id": 1000,
-      "name": "Camera",
       "components": {
         "Camera2D": {
           "background_color": [
@@ -23,13 +21,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1000,
+      "name": "Camera"
     },
     {
       "active": true,
       "children": [],
-      "id": 1001,
-      "name": "Menu_Backdrop",
       "components": {
         "ParallaxBackground": {
           "color": [
@@ -57,13 +55,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1001,
+      "name": "Menu_Backdrop"
     },
     {
       "active": true,
       "children": [],
-      "id": 1002,
-      "name": "Menu_BackdropMid",
       "components": {
         "ParallaxBackground": {
           "color": [
@@ -91,13 +89,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1002,
+      "name": "Menu_BackdropMid"
     },
     {
       "active": true,
       "children": [],
-      "id": 1003,
-      "name": "Menu_BackdropFront",
       "components": {
         "ParallaxBackground": {
           "color": [
@@ -125,13 +123,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1003,
+      "name": "Menu_BackdropFront"
     },
     {
       "active": true,
       "children": [],
-      "id": 1004,
-      "name": "Menu_Mist",
       "components": {
         "ParallaxBackground": {
           "color": [
@@ -159,13 +157,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1004,
+      "name": "Menu_Mist"
     },
     {
       "active": true,
       "children": [],
-      "id": 1005,
-      "name": "MenuController",
       "components": {
         "ScriptComponent": {
           "scripts": [
@@ -179,13 +177,13 @@
           "x": 0,
           "y": 0
         }
-      }
+      },
+      "id": 1005,
+      "name": "MenuController"
     },
     {
       "active": true,
       "children": [],
-      "id": 1006,
-      "name": "HUDPanel",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -211,13 +209,13 @@
           "pos_y": 12,
           "width": 490
         }
-      }
+      },
+      "id": 1006,
+      "name": "HUDPanel"
     },
     {
       "active": true,
       "children": [],
-      "id": 1007,
-      "name": "HudLogo",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -245,13 +243,13 @@
           "texture": "logo_abyss.png",
           "width": 76
         }
-      }
+      },
+      "id": 1007,
+      "name": "HudLogo"
     },
     {
       "active": true,
       "children": [],
-      "id": 1008,
-      "name": "HudHealth",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -284,13 +282,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1008,
+      "name": "HudHealth"
     },
     {
       "active": true,
       "children": [],
-      "id": 1009,
-      "name": "HudEnergy",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -323,13 +321,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1009,
+      "name": "HudEnergy"
     },
     {
       "active": true,
       "children": [],
-      "id": 1010,
-      "name": "HudRoom",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -362,13 +360,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1010,
+      "name": "HudRoom"
     },
     {
       "active": true,
       "children": [],
-      "id": 1011,
-      "name": "HudHint",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -401,13 +399,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1011,
+      "name": "HudHint"
     },
     {
       "active": true,
       "children": [],
-      "id": 1012,
-      "name": "HudAmmo",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -440,13 +438,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1012,
+      "name": "HudAmmo"
     },
     {
       "active": true,
       "children": [],
-      "id": 1013,
-      "name": "HudCombo",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -479,13 +477,13 @@
           "v_align": "middle",
           "width": 250
         }
-      }
+      },
+      "id": 1013,
+      "name": "HudCombo"
     },
     {
       "active": true,
       "children": [],
-      "id": 1100,
-      "name": "Menu_Logo",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -518,13 +516,13 @@
           "v_align": "middle",
           "width": 600
         }
-      }
+      },
+      "id": 1100,
+      "name": "Menu_Logo"
     },
     {
       "active": true,
       "children": [],
-      "id": 1101,
-      "name": "Menu_Title",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -557,13 +555,13 @@
           "v_align": "middle",
           "width": 400
         }
-      }
+      },
+      "id": 1101,
+      "name": "Menu_Title"
     },
     {
       "active": true,
       "children": [],
-      "id": 1102,
-      "name": "Menu_Subtitle",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -596,13 +594,13 @@
           "v_align": "middle",
           "width": 400
         }
-      }
+      },
+      "id": 1102,
+      "name": "Menu_Subtitle"
     },
     {
       "active": true,
       "children": [],
-      "id": 1103,
-      "name": "Menu_Status",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -635,13 +633,13 @@
           "v_align": "middle",
           "width": 400
         }
-      }
+      },
+      "id": 1103,
+      "name": "Menu_Status"
     },
     {
       "active": true,
       "children": [],
-      "id": 1104,
-      "name": "Menu_Continue",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -650,48 +648,25 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "continue",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": -50,
-          "width": 220,
-          "on_click": "continue"
-        },
-        "UIText": {
-          "align": "center",
-          "anchor_x": 0.5,
-          "anchor_y": 0.5,
-          "bold": true,
-          "color": [
-            180,
-            220,
-            255,
-            255
-          ],
-          "font_size": 16,
-          "height": 36,
-          "italic": false,
-          "pivot_x": 0.5,
-          "pivot_y": 0.5,
-          "pos_x": 0,
-          "pos_y": -50,
-          "shadow": true,
-          "text": "Continue",
-          "v_align": "middle",
           "width": 220
-        }
-      }
+        },
+        "UICanvas": {}
+      },
+      "id": 1104,
+      "name": "Menu_Continue"
     },
     {
       "active": true,
       "children": [],
-      "id": 1105,
-      "name": "Menu_Start",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -700,18 +675,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "start",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": -10,
-          "width": 220,
-          "on_click": "start"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -735,13 +710,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1105,
+      "name": "Menu_Start"
     },
     {
       "active": true,
       "children": [],
-      "id": 1106,
-      "name": "Menu_Verdant",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -750,18 +725,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "verdant",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 30,
-          "width": 220,
-          "on_click": "verdant"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -785,13 +760,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1106,
+      "name": "Menu_Verdant"
     },
     {
       "active": true,
       "children": [],
-      "id": 1107,
-      "name": "Menu_Crystal",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -800,18 +775,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "crystal",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 70,
-          "width": 220,
-          "on_click": "crystal"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -835,13 +810,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1107,
+      "name": "Menu_Crystal"
     },
     {
       "active": true,
       "children": [],
-      "id": 1108,
-      "name": "Menu_Flooded",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -850,18 +825,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "flooded",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 110,
-          "width": 220,
-          "on_click": "flooded"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -885,13 +860,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1108,
+      "name": "Menu_Flooded"
     },
     {
       "active": true,
       "children": [],
-      "id": 1109,
-      "name": "Menu_Deep",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -900,18 +875,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "deep",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 150,
-          "width": 220,
-          "on_click": "deep"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -935,13 +910,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1109,
+      "name": "Menu_Deep"
     },
     {
       "active": true,
       "children": [],
-      "id": 1110,
-      "name": "Menu_Boss",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -950,18 +925,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "boss",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 190,
-          "width": 220,
-          "on_click": "boss"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -985,13 +960,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1110,
+      "name": "Menu_Boss"
     },
     {
       "active": true,
       "children": [],
-      "id": 1111,
-      "name": "Menu_Settings",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1000,18 +975,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "settings",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 230,
-          "width": 220,
-          "on_click": "settings"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -1035,13 +1010,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1111,
+      "name": "Menu_Settings"
     },
     {
       "active": true,
       "children": [],
-      "id": 1112,
-      "name": "Menu_NewGame",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1050,18 +1025,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "newgame",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 270,
-          "width": 220,
-          "on_click": "newgame"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -1085,13 +1060,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1112,
+      "name": "Menu_NewGame"
     },
     {
       "active": true,
       "children": [],
-      "id": 1113,
-      "name": "Menu_Reset",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1100,18 +1075,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "reset",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 310,
-          "width": 220,
-          "on_click": "reset"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -1135,13 +1110,13 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1113,
+      "name": "Menu_Reset"
     },
     {
       "active": true,
       "children": [],
-      "id": 1114,
-      "name": "Menu_Help",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1174,13 +1149,13 @@
           "v_align": "middle",
           "width": 600
         }
-      }
+      },
+      "id": 1114,
+      "name": "Menu_Help"
     },
     {
       "active": false,
       "children": [],
-      "id": 1115,
-      "name": "Menu_SettingsPanel",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1206,13 +1181,40 @@
           "pos_y": 30,
           "width": 300
         }
-      }
+      },
+      "id": 1115,
+      "name": "Menu_SettingsPanel"
     },
     {
       "active": false,
       "children": [],
+      "components": {
+        "Transform": {
+          "rotation": 0.0,
+          "scale_x": 1.0,
+          "scale_y": 1.0,
+          "x": 0,
+          "y": 0
+        },
+        "UIButton": {
+          "anchor_x": 0.5,
+          "anchor_y": 0.5,
+          "height": 36,
+          "on_click": "screenshake",
+          "pivot_x": 0.5,
+          "pivot_y": 0.5,
+          "pos_x": 0,
+          "pos_y": -30,
+          "width": 240
+        },
+        "UICanvas": {}
+      },
       "id": 1116,
-      "name": "Menu_ScreenShake",
+      "name": "Menu_ScreenShake"
+    },
+    {
+      "active": false,
+      "children": [],
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1221,98 +1223,25 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "combatassist",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
-          "pos_y": -30,
-          "width": 240,
-          "on_click": "screenshake"
-        },
-        "UIText": {
-          "align": "center",
-          "anchor_x": 0.5,
-          "anchor_y": 0.5,
-          "bold": false,
-          "color": [
-            255,
-            255,
-            255,
-            255
-          ],
-          "font_size": 16,
-          "height": 36,
-          "italic": false,
-          "pivot_x": 0.5,
-          "pivot_y": 0.5,
-          "pos_x": 0,
-          "pos_y": -30,
-          "shadow": true,
-          "text": "Screen Shake: ON",
-          "v_align": "middle",
+          "pos_y": 10,
           "width": 240
-        }
-      }
-    },
-    {
-      "active": false,
-      "children": [],
+        },
+        "UICanvas": {}
+      },
       "id": 1117,
-      "name": "Menu_CombatAssist",
-      "components": {
-        "Transform": {
-          "rotation": 0.0,
-          "scale_x": 1.0,
-          "scale_y": 1.0,
-          "x": 0,
-          "y": 0
-        },
-        "UICanvas": {},
-        "UIButton": {
-          "anchor_x": 0.5,
-          "anchor_y": 0.5,
-          "height": 36,
-          "pivot_x": 0.5,
-          "pivot_y": 0.5,
-          "pos_x": 0,
-          "pos_y": 10,
-          "width": 240,
-          "on_click": "combatassist"
-        },
-        "UIText": {
-          "align": "center",
-          "anchor_x": 0.5,
-          "anchor_y": 0.5,
-          "bold": false,
-          "color": [
-            255,
-            255,
-            255,
-            255
-          ],
-          "font_size": 16,
-          "height": 36,
-          "italic": false,
-          "pivot_x": 0.5,
-          "pivot_y": 0.5,
-          "pos_x": 0,
-          "pos_y": 10,
-          "shadow": true,
-          "text": "Combat Assist: OFF",
-          "v_align": "middle",
-          "width": 240
-        }
-      }
+      "name": "Menu_CombatAssist"
     },
     {
       "active": false,
       "children": [],
-      "id": 1118,
-      "name": "Menu_Back",
       "components": {
         "Transform": {
           "rotation": 0.0,
@@ -1321,18 +1250,18 @@
           "x": 0,
           "y": 0
         },
-        "UICanvas": {},
         "UIButton": {
           "anchor_x": 0.5,
           "anchor_y": 0.5,
           "height": 36,
+          "on_click": "back",
           "pivot_x": 0.5,
           "pivot_y": 0.5,
           "pos_x": 0,
           "pos_y": 80,
-          "width": 220,
-          "on_click": "back"
+          "width": 220
         },
+        "UICanvas": {},
         "UIText": {
           "align": "center",
           "anchor_x": 0.5,
@@ -1356,29 +1285,15 @@
           "v_align": "middle",
           "width": 220
         }
-      }
+      },
+      "id": 1118,
+      "name": "Menu_Back"
     }
   ],
   "sorting_layers": [
-    {
-      "id": 0,
-      "name": "Background"
-    },
-    {
-      "id": 1,
-      "name": "Terrain"
-    },
-    {
-      "id": 2,
-      "name": "Default"
-    },
-    {
-      "id": 3,
-      "name": "Effects"
-    },
-    {
-      "id": 4,
-      "name": "UI"
-    }
+    "Background",
+    "Default",
+    "Foreground",
+    "UI"
   ]
 }

@@ -89,6 +89,8 @@ public:
         // against small enemies, so Arc always has a visible gameplay effect
         // even between two 120 Hz physics substeps.
         if (team == 1) {
+            _tunnel_check_frames = (_tunnel_check_frames + 1) % 3;
+            if (_tunnel_check_frames != 0) goto after_tunnel_check;
             for (auto& other : entities()) {
                 if (other.value("_destroyed", false) || !other.value("active", true)) continue;
                 if (other.value("team", 0) != 2 || !other.contains("hp") ||
@@ -109,6 +111,7 @@ public:
                 }
                 return;
             }
+            after_tunnel_check:;
         }
     }
 
@@ -152,5 +155,6 @@ private:
     int damage = 0;
     int team = 0;
     int pierces = 0;
+    int _tunnel_check_frames = 0;
 
 };

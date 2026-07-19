@@ -959,7 +959,7 @@ inline void rebuild_scripts_module(const std::string& project) {
         if (needs_configure) {
             rb.set_message("Reconfiguring " + project + "...");
             std::string configure = msvc_x64_env + "cmake -S " + quote(scripts_src) + " -B " + quote(scripts_build_dir) +
-                " -DSCRIPTS_TARGET_PROJECT=" + project;
+                " -DSCRIPTS_TARGET_PROJECT=" + project + gameengine::toolchain::sdl2_cmake_arg(root);
             if (std::system(configure.c_str()) != 0) {
                 rb.set_message("Reconfigure failed — check a new/edited script in '" + project + "' for syntax errors, or the console window this editor was launched from.");
                 rb.success = false; rb.done = true; rb.in_progress = false;
