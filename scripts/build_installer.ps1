@@ -68,6 +68,7 @@ function Assert-ReleaseStage([string]$Stage) {
     foreach ($required in @(
         'hub.exe', 'editor.exe', 'SDL2.dll', 'editor_symbols.map',
         'templates\abyss-of-hollows\project.json',
+        'build\scripts_module_fast\abyss_of_hollows\Release',
         'engine_cpp\engine\core.cpp', 'editor\src\editor_state.hpp', 'editor\third_party\imgui\imgui.h', 'editor\scripts_module\CMakeLists.txt',
         'cmake\msbuild_host_x64.props',
         'nlohmann\json.hpp', 'third_party\sdl2\include\SDL2\SDL.h',
@@ -77,7 +78,7 @@ function Assert-ReleaseStage([string]$Stage) {
         }
     }
     foreach ($forbidden in @(
-        'templates\novaSlash', 'templates\game5', 'build', '.git', '.vs',
+        'templates\novaSlash', 'templates\game5', '.git', '.vs',
         '__pycache__', 'crash_reports', 'installer_smoke', 'engine_cpp\tests',
         'templates\abyss-of-hollows\tools')) {
         if (Test-Path -LiteralPath (Join-Path $Stage $forbidden)) {
@@ -94,6 +95,10 @@ function Assert-ReleaseStage([string]$Stage) {
     $retiredScripts = Get-ChildItem -LiteralPath (Join-Path $Stage 'templates\abyss-of-hollows\scripts') -Filter 'NewScript*.cpp' -File -ErrorAction SilentlyContinue
     if ($retiredScripts) {
         throw 'Release staging contains retired numbered showcase scripts.'
+    }
+    $retiredModules = Get-ChildItem -LiteralPath (Join-Path $Stage 'build\scripts_module_fast\abyss_of_hollows\Release') -Filter '*NewScript*.dll' -File -ErrorAction SilentlyContinue
+    if ($retiredModules) {
+        throw 'Release staging contains retired numbered showcase script modules.'
     }
 }
 
@@ -278,6 +283,25 @@ Copy-Tree (Join-Path $root 'editor\third_party\imgui') (Join-Path $stage 'editor
 Copy-Tree (Join-Path $root 'editor\scripts_module') (Join-Path $stage 'editor\scripts_module')
 Copy-Tree (Join-Path $hubRelease 'assets') (Join-Path $stage 'assets')
 Copy-Tree (Join-Path $hubRelease 'templates') (Join-Path $stage 'templates')
+# The sample template must open with all of its native gameplay classes
+# registered. Stage only the final DLLs, never MSVC/CMake intermediates.
+$templateModules = Join-Path $root 'build\scripts_module_fast\Release'
+$templateModuleStage = Join-Path $stage 'build\scripts_module_fast\abyss_of_hollows\Release'
+New-Item -ItemType Directory -Path $templateModuleStage -Force | Out-Null
+$templateSourceNames = Get-ChildItem -LiteralPath (Join-Path $root 'games\abyss-of-hollows\scripts') -Filter '*.cpp' -File |
+    Select-Object -ExpandProperty BaseName
+$templatePrefix = 'abyss_of_hollows_'
+$templateDlls = Get-ChildItem -LiteralPath $templateModules -Filter "$templatePrefix*.dll" -File -ErrorAction SilentlyContinue |
+    Where-Object {
+        $_.Name -notlike '*_hot_*.dll' -and
+        $templateSourceNames -contains $_.BaseName.Substring($templatePrefix.Length)
+    }
+if (-not $templateDlls) {
+    throw 'Prebuilt Abyss of Hollows script modules are missing. Build the abyss-of-hollows script modules before packaging.'
+}
+foreach ($dll in $templateDlls) {
+    Copy-Required $dll.FullName (Join-Path $templateModuleStage $dll.Name)
+}
 Copy-Tree (Join-Path $root 'nlohmann') (Join-Path $stage 'nlohmann')
 Copy-Required (Join-Path $root 'CMakeLists.txt') (Join-Path $stage 'CMakeLists.txt')
 Copy-Required (Join-Path $root 'installer\THIRD_PARTY_NOTICES.md') (Join-Path $stage 'THIRD_PARTY_NOTICES.md')
@@ -304,6 +328,7 @@ Assert-IdenticalFile (Join-Path $hubRelease 'hub.exe') (Join-Path $stage 'hub.ex
 Assert-IdenticalFile (Join-Path $editorRelease 'editor.exe') (Join-Path $stage 'editor.exe') 'Editor executable'
 foreach ($required in @('SDL2.dll', 'editor_symbols.map', 'shaders\sprite.vert.spv', 'shaders\sprite.frag.spv',
                         'assets\fonts\default.ttf', 'templates\abyss-of-hollows\project.json',
+                        'build\scripts_module_fast\abyss_of_hollows\Release',
                         'engine_cpp\engine\core.cpp', 'editor\CMakeLists.txt', 'editor\src\editor_state.hpp', 'editor\third_party\imgui\imgui.h', 'editor\scripts_module\CMakeLists.txt',
                         'cmake\msbuild_host_x64.props',
                         'nlohmann\json.hpp', 'third_party\sdl2\include\SDL2\SDL.h',

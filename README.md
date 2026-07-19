@@ -22,13 +22,13 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 2. Run the installer. It installs GameEngine2D Pro to `%LocalAppData%\GameEngine2D Pro` and sets up the authoring prerequisites needed for native C++ scripts.
 3. Launch **GameEngine Hub** from the Start Menu.
 4. Create a project with the **Abyss of Hollows** template, then open it in the Editor.
-5. On the first project open, the Editor automatically synchronizes the active project's native scripts. It locks editing and displays progress while this runs; the first synchronization can take a few minutes.
+5. The Abyss of Hollows template includes prebuilt native gameplay modules, so its scripts are registered immediately—no first-launch compile is required.
 6. Press **Play** in the Editor to run the active scene.
 
 ### Quick test path
 
 1. In the Assets panel, open `scripts/` and edit an existing `.cpp` script or create a new one.
-2. Save the file. The editor rebuilds the affected native module rather than rebuilding the Editor executable.
+2. Save the file and press **Reload Scripts**. The editor rebuilds only the affected native module, never the Editor executable.
 3. Return to Play mode and confirm the change runs.
 4. Open **Project Settings → Build Settings** and use **Build** or **Build & Run** to create a standalone Windows game.
 

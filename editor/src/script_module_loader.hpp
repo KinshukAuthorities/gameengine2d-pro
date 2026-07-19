@@ -104,7 +104,7 @@ inline fs::path script_module_build_dir(const fs::path& engine_root,
 // function-local statics or header-only inline globals (see each of their
 // own comments in script_system.hpp / unity2d_script_api.hpp for why this
 // matters).
-using RegisterAllScriptsFn = void(*)(ScriptRegistry*, scriptfields::InstanceRegistry*, Screen::State*, Input::State*, SceneManager::State*, Network::State*, Matchmaking::State*, EventBus::State*, Debug::State*);
+using RegisterAllScriptsFn = void(*)(ScriptRegistry*, scriptfields::InstanceRegistry*, Screen::State*, Input::State*, SceneManager::State*, Network::State*, Matchmaking::State*, EventBus::State*, Debug::State*, const char*);
 
 class ScriptModuleLoader {
 public:
@@ -254,7 +254,7 @@ public:
 
         fn(&ScriptRegistry::instance(), &scriptfields::InstanceRegistry::instance(),
            &Screen::_state(), &Input::_state(), &SceneManager::_state(), &Network::_state(), &Matchmaking::_state(),
-           &EventBus::_state(), &Debug::_state());
+           &EventBus::_state(), &Debug::_state(), project.c_str());
 
         // Entries no longer emitted by this source must not retain pointers
         // into the old DLL after it is unloaded below.

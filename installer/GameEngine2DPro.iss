@@ -62,6 +62,10 @@ Source: "{#StageRoot}\editor\scripts_module\*"; DestDir: "{app}\editor\scripts_m
 Source: "{#StageRoot}\nlohmann\*"; DestDir: "{app}\nlohmann"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#StageRoot}\third_party\sdl2\*"; DestDir: "{app}\third_party\sdl2"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#StageRoot}\templates\*"; DestDir: "{app}\templates"; Flags: ignoreversion recursesubdirs createallsubdirs
+; Prebuilt native modules for the shipped Abyss template. Hub copies them
+; into the selected project's namespace on creation, avoiding a first-launch
+; C++ rebuild while preserving normal targeted Reload Scripts behavior later.
+Source: "{#StageRoot}\build\scripts_module_fast\abyss_of_hollows\Release\*.dll"; DestDir: "{app}\build\scripts_module_fast\abyss_of_hollows\Release"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#StageRoot}\CMakeLists.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#StageRoot}\LICENSE*"; DestDir: "{app}"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#StageRoot}\THIRD_PARTY_NOTICES.md"; DestDir: "{app}"; Flags: ignoreversion

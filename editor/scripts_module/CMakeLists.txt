@@ -109,7 +109,7 @@ set(_export_block
     "#if defined(_WIN32)\n"
     "__declspec(dllexport)\n"
     "#endif\n"
-    "void RegisterAllScripts(ScriptRegistry* host_registry, scriptfields::InstanceRegistry* host_field_registry, Screen::State* host_screen_state, Input::State* host_input_state, SceneManager::State* host_scene_manager_state, Network::State* host_network_state, Matchmaking::State* host_matchmaking_state, EventBus::State* host_event_bus_state, Debug::State* host_debug_state) {\n"
+    "void RegisterAllScripts(ScriptRegistry* host_registry, scriptfields::InstanceRegistry* host_field_registry, Screen::State* host_screen_state, Input::State* host_input_state, SceneManager::State* host_scene_manager_state, Network::State* host_network_state, Matchmaking::State* host_matchmaking_state, EventBus::State* host_event_bus_state, Debug::State* host_debug_state, const char* registration_project) {\n"
     "    if (host_field_registry) scriptfields::InstanceRegistry::set_host_instance(host_field_registry)\;\n"
     "    if (host_screen_state) Screen::bind_state(host_screen_state)\;\n"
     "    if (host_input_state) Input::bind_state(host_input_state)\;\n"
@@ -118,7 +118,7 @@ set(_export_block
     "    if (host_matchmaking_state) Matchmaking::bind_state(host_matchmaking_state)\;\n"
     "    if (host_event_bus_state) EventBus::bind_state(host_event_bus_state)\;\n"
     "    if (host_debug_state) Debug::bind_state(host_debug_state)\;\n"
-    "    if (host_registry) ::scriptregistry_detail::drain_into(*host_registry)\;\n"
+    "    if (host_registry) ::scriptregistry_detail::drain_into(*host_registry, registration_project)\;\n"
     "}\n"
     "}\n"
 )

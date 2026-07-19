@@ -69,7 +69,7 @@ struct LogEntry {
 // ─── EditorState ─────────────────────────────────────────────────────────────
 struct EditorState {
     // Scene
-    std::string  scene_path  = "games/example/scene.json";
+    std::string  scene_path  = "games/abyss-of-hollows/scene.json";
     EntityList   entities;
     int          selected_id = -1;
     std::vector<int> selected_ids;
@@ -186,7 +186,7 @@ struct EditorState {
     UndoManager undo;
 
     // Asset dir
-    std::string asset_dir = "games/example/assets";
+    std::string asset_dir = "games/abyss-of-hollows/assets";
 
     // Inspector-to-graph-editor handoff. Keeping this in shared editor state
     // avoids a panel owning another panel and lets a VisualScript component
@@ -489,7 +489,7 @@ struct EditorState {
     // All relative paths are resolved from the project root (the directory that
     // contains engine_cpp/, editor/, games/, scripts/, export/, etc.).
     // editor_main.cpp performs a chdir to that root before any path is used,
-    // so bare relative strings like "games/example/scene.json" just work.
+    // so bare relative strings resolve from the engine root.
 
     // Returns the top-level games/ directory (project_root/games).
     static std::filesystem::path games_root() {

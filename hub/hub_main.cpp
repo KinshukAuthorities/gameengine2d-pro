@@ -528,6 +528,42 @@ public:
         manifest.created_at = now_utc_string();
         manifest.last_opened_at.clear();
         if (!save_manifest(destination, manifest, &error)) { set_notice(error, true); return false; }
+
+        // The shipped Abyss template includes prebuilt native script modules.
+        // Clone those into a namespace matching the new folder so the first
+        // editor launch can register its gameplay immediately. The module ABI
+        // receives the destination project id at load time, so this remains
+        // correct for every Hub-created project without a startup recompile.
+        if (template_id == "abyss-of-hollows") {
+            const std::string source_namespace = "abyss_of_hollows";
+            std::string destination_namespace = id;
+            for (char& c : destination_namespace)
+                if (!std::isalnum(static_cast<unsigned char>(c)) && c != '_') c = '_';
+            const fs::path modules = root / "build" / "scripts_module_fast" /
+                                     source_namespace / "Release";
+            const fs::path module_destination = root / "build" / "scripts_module_fast" /
+                                                destination_namespace / "Release";
+            std::error_code module_ec;
+            int copied_modules = 0;
+            if (fs::is_directory(modules, module_ec)) {
+                fs::create_directories(module_destination, module_ec);
+                const std::string prefix = source_namespace + "_";
+                for (fs::directory_iterator it(modules, module_ec), end;
+                     !module_ec && it != end; it.increment(module_ec)) {
+                    if (!it->is_regular_file(module_ec) || it->path().extension() != ".dll") continue;
+                    const std::string name = it->path().filename().string();
+                    if (name.rfind(prefix, 0) != 0) continue;
+                    const fs::path target = module_destination /
+                        (destination_namespace + name.substr(source_namespace.size()));
+                    fs::copy_file(it->path(), target, fs::copy_options::overwrite_existing, module_ec);
+                    if (!module_ec) ++copied_modules;
+                }
+            }
+            if (module_ec || copied_modules == 0) {
+                set_notice("Project files were created, but bundled Abyss script modules could not be staged. Repair the installation.", true);
+                return false;
+            }
+        }
         set_notice(action + " project as games/" + id + ".");
         return true;
     }

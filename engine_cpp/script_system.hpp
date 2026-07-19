@@ -1864,9 +1864,19 @@ namespace scriptregistry_detail {
     // per module load; the queue is empty afterward so a second drain
     // (e.g. accidentally calling RegisterAllScripts twice) is a no-op
     // rather than a duplicate-registration bug.
-    inline void drain_into(ScriptRegistry& target) {
+    inline void drain_into(ScriptRegistry& target, const char* project_override = nullptr) {
         auto& q = pending_queue();
-        for (auto& p : q) target.reg(p.name, p.factory);
+        const std::string project = project_override ? project_override : "";
+        for (auto& p : q) {
+            std::string key = p.name;
+            if (!project.empty()) {
+                const std::size_t separator = key.rfind("::");
+                const std::string class_name = separator == std::string::npos
+                    ? key : key.substr(separator + 2);
+                key = detail::make_script_key(project.c_str(), class_name.c_str());
+            }
+            target.reg(key, p.factory);
+        }
         q.clear();
     }
 }

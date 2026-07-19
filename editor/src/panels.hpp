@@ -5613,19 +5613,6 @@ public:
         // opens.  The background CMake target compiles only missing/changed
         // sources; the editor modal keeps the scene read-only until the
         // module registry is safe to use.
-        if (_initial_modules_loaded() && !st.playing) {
-            const std::string project = project_name_from_scene_path(st.scene_path);
-            if (!project.empty()) {
-                auto& latch = _auto_rebuild_latch(project);
-                auto& rebuild = script_rebuild_state(project);
-                if (!latch.attempted && !rebuild.in_progress.load()) {
-                    latch.attempted = true;
-                    st.log_warn("[" + project + "] preparing native scripts for this editor session...");
-                    rebuild_scripts_module(project);
-                }
-            }
-        }
-
         // Do not rebuild every inactive project at startup.
         if (false) {
             for (auto& project : _all_script_project_names()) {

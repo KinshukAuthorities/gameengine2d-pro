@@ -5505,7 +5505,7 @@
       "components": {
         "Tilemap": {
           "filter_mode": "point",
-          "generate_colliders": false,
+          "generate_colliders": true,
           "grid": [
             [
               -1,
@@ -9434,7 +9434,7 @@
       "components": {
         "Tilemap": {
           "filter_mode": "point",
-          "generate_colliders": false,
+          "generate_colliders": true,
           "grid": [
             [
               -1,

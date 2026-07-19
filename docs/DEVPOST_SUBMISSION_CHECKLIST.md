@@ -17,7 +17,7 @@ This page summarizes the information attached to my GameEngine2D Pro submission.
 2. Install GameEngine2D Pro.
 3. Launch GameEngine Hub.
 4. Create or open the **Abyss of Hollows** template.
-5. Open the project in the Editor. The initial native-script synchronization runs automatically before Play mode is used.
+5. Open the project in the Editor. The bundled Abyss modules are already registered, so it is ready for Play without an initial native-script compile.
 6. Press Play, edit a script, or build a standalone game from Project Settings to evaluate the development workflow.
 
 The repository provides the complete source and documentation. The installer provides the no-rebuild evaluation path for judges.

@@ -369,7 +369,7 @@ static bool browse_for_new_scene_file(const std::filesystem::path& project_root,
 
 int editor_main_impl(int argc, char* argv[]) {
     // Resolve working directory to the project root so that relative paths
-    // like "games/example/scene.json" and "editor_prefs.json" always work,
+    // like "games/abyss-of-hollows/scene.json" and "editor_prefs.json" always work,
     // regardless of where editor.exe was launched from.
     auto project_root = find_and_set_project_root();
     crashreport::install("editor", project_root);
@@ -2063,16 +2063,6 @@ int editor_main_impl(int argc, char* argv[]) {
                         ImGui::PushTextWrapPos(420.f);
                         ImGui::TextWrapped("%s", rb.get_message().c_str());
                         ImGui::PopTextWrapPos();
-                        ImGui::Spacing();
-                        // CMake does not expose a truthful percentage.  Show
-                        // an indeterminate moving bar instead of inventing a
-                        // completion value while the first project sync runs.
-                        static float first_sync_phase = 0.f;
-                        first_sync_phase += dt * 0.55f;
-                        if (first_sync_phase > 1.f) first_sync_phase -= 1.f;
-                        ImGui::ProgressBar(0.15f + first_sync_phase * 0.70f,
-                                           ImVec2(420.f, 10.f), "Synchronizing scripts");
-                        ImGui::TextDisabled("This first script synchronization may take a few minutes.");
                         ImGui::Spacing();
                         ImGui::TextDisabled("The editor is locked until the new/changed script finishes building.");
                     }

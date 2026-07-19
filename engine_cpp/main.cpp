@@ -82,12 +82,15 @@ int main(int argc, char* argv[]) {
 
     crashreport::install("standalone", std::filesystem::current_path());
 
-    // Default to a scene next to the executable for standalone exports.
-    // Fall back to the bundled example scene when running from the repo.
+    // Standalone exports always place their designated boot scene next to the
+    // executable as scene.json. Never fall back to a source-checkout sample.
     std::string scene = (argc > 1) ? argv[1] : "scene.json";
     scene = resolve_scene_path(scene, argv[0]).string();
-    if (argc <= 1 && !std::filesystem::exists(scene)) {
-        scene = resolve_scene_path("../games/example/scene.json", argv[0]).string();
+    if (!std::filesystem::is_regular_file(scene)) {
+        std::cerr << "[Engine] Fatal: Cannot locate startup scene: " << scene << "\n";
+        std::cerr << "[Engine] Expected scene.json next to the game executable. "
+                     "Rebuild the export from Project Settings.\n";
+        return 1;
     }
 
     // REGISTER_SCRIPT deliberately queues registrations so hot-reload DLLs
