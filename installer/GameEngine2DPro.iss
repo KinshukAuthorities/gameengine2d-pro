@@ -199,3 +199,16 @@ begin
     end;
   end;
 end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if CurPageID = wpFinished then begin
+    WizardForm.FinishedLabel.Caption :=
+      'GameEngine2D Pro is ready to use.' + #13#10 + #13#10 +
+      'Installed location:' + #13#10 + ExpandConstant('{app}') + #13#10 + #13#10 +
+      'Start GameEngine Hub from the Start menu, desktop shortcut (if selected), or:' + #13#10 +
+      ExpandConstant('{app}\hub.exe') + #13#10 + #13#10 +
+      'Projects created by the Hub are stored in:' + #13#10 +
+      ExpandConstant('{app}\games');
+  end;
+end;
