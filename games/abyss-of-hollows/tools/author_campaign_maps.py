@@ -1,4 +1,4 @@
-"""Author the playable Game7 campaign grids from deterministic source data.
+"""Author the playable Abyss of Hollows campaign grids from deterministic source data.
 
 This tool writes scene JSON only.  It deliberately has no engine/build step.
 The previous generated maps reused a single top-ceiling layout and then tried
@@ -6,7 +6,7 @@ to decorate it at runtime.  This file makes terrain, room boundaries, spawn
 heights, and combat placements explicit scene data instead.
 
 Run from the engine root:
-  python games/game7/tools/author_campaign_maps.py
+  python games/abyss-of-hollows/tools/author_campaign_maps.py
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from typing import Iterable
 
 
 ROOT = Path(__file__).resolve().parents[3]
-GAME = ROOT / "games" / "game7"
+GAME = ROOT / "games" / "abyss-of-hollows"
 TILE = 64
 NORMAL_ROWS, NORMAL_COLS = 32, 120
 BOSS_ROWS, BOSS_COLS = 36, 96

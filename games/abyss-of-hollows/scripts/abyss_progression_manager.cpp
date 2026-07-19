@@ -123,7 +123,7 @@ public:
             if (name.rfind("WorldTerrain_", 0) == 0) ++terrain_layers;
             if (name.rfind("RoomVolume_", 0) == 0) ++authored_rooms;
         }
-        // A stale CampaignLayout_v2 marker was present in every Game7 scene
+        // A stale CampaignLayout_v2 marker was present in every legacy scene
         // despite the scenes containing neither the named terrain entities
         // nor their four physical room volumes.  Trusting that marker hid the
         // only construction path, leaving an empty-looking copied map with no

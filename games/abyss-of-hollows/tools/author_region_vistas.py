@@ -1,6 +1,6 @@
 """Idempotently author the visual identity layer for every Abyss region.
 
-This is kept with the Game7 template because it is an authoring tool, not a
+This is kept with the Abyss of Hollows template because it is an authoring tool, not a
 runtime dependency: rerun it whenever a level is rebuilt to restore the
 non-colliding vistas and landmarks without touching the tested collision grids.
 """

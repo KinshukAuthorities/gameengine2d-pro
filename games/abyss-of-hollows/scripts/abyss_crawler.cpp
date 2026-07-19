@@ -157,7 +157,7 @@ private:
         float vy = rb.VY();
         const bool airborne_variant = entity ? entity.Value("airborne_variant", false) : false;
         if (!airborne_variant) {
-            // Down is positive in Game7's screen-space coordinates.  Keep a
+            // Down is positive in the showcase's screen-space coordinates. Keep a
             // small downward contact velocity on a floor, and a bounded fall
             // speed otherwise; this is the missing gravity contract behind
             // crawling enemies appearing to hover over their platforms.

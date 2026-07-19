@@ -1,4 +1,4 @@
-# Game7 third-party asset notices
+# Abyss of Hollows third-party asset notices
 
 The project keeps downloaded source packs under `third_party/cc0/` so their
 origin remains auditable.  Game-facing compositions, colors, layouts,

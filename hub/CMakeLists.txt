@@ -124,10 +124,9 @@ endif()
 # The source projects stay usable samples. At Hub build time they are copied
 # into the Hub's own package as immutable template snapshots; runtime project
 # creation reads only these packaged copies, never a live games/ project.
-# Game7 is the canonical authored Abyss showcase. The release template uses
-# its player-facing name rather than a historical project number; it is the
-# only bundled game sample. Blank 2D remains a native Hub creation mode.
-set(_abyss_template_source "${CMAKE_CURRENT_SOURCE_DIR}/../games/game7")
+# Abyss of Hollows is the canonical authored showcase and the only bundled
+# game sample. Blank 2D remains a native Hub creation mode.
+set(_abyss_template_source "${CMAKE_CURRENT_SOURCE_DIR}/../games/abyss-of-hollows")
 if(NOT IS_DIRECTORY "${_abyss_template_source}")
   message(FATAL_ERROR "Abyss of Hollows source project is missing: ${_abyss_template_source}")
 endif()

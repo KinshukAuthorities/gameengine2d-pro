@@ -20,7 +20,7 @@ file(COPY "${SOURCE_DIR}/" DESTINATION "${DESTINATION_DIR}"
   PATTERN "*.ilk" EXCLUDE
   PATTERN "*.tmp" EXCLUDE
   PATTERN "*.bak" EXCLUDE
-  # Game7's numbered NewScript files are abandoned scratch behaviours. They
+  # The old numbered NewScript files are abandoned scratch behaviours. They
   # are not registered by game_scripts.hpp and compiling them in every new
   # sample project wastes hot-reload time.
   PATTERN "scripts/NewScript*.cpp" EXCLUDE

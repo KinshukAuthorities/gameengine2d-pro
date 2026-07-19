@@ -139,11 +139,11 @@ int main() {
     // as a live project in the release workspace.
     const fs::path workspace = fs::current_path();
     const auto current_projects = discover_projects(workspace, {});
-    bool game7_found = false;
+    bool abyss_found = false;
     for (const ProjectInfo& project : current_projects) {
-        game7_found |= project.manifest.project_id == "game7";
+        abyss_found |= project.manifest.project_id == "abyss-of-hollows";
     }
-    expect(game7_found,
+    expect(abyss_found,
            "discover the canonical Abyss of Hollows showcase project");
 
     fs::remove_all(sandbox, ec);

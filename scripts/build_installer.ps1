@@ -93,7 +93,7 @@ function Assert-ReleaseStage([string]$Stage) {
     }
     $retiredScripts = Get-ChildItem -LiteralPath (Join-Path $Stage 'templates\abyss-of-hollows\scripts') -Filter 'NewScript*.cpp' -File -ErrorAction SilentlyContinue
     if ($retiredScripts) {
-        throw 'Release staging contains retired numbered Game7 scripts.'
+        throw 'Release staging contains retired numbered showcase scripts.'
     }
 }
 

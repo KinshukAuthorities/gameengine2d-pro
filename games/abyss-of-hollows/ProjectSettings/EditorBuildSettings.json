@@ -1,0 +1,34 @@
+[
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_ascent.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_boss.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_crystal.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_deep.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_flooded.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_home.json"
+  },
+  {
+    "enabled": true,
+    "path": "games/abyss-of-hollows/scene_verdant.json"
+  }
+]

@@ -5476,14 +5476,14 @@ class AssetsPanel {
         // The Assets panel intentionally stores project-relative paths so it
         // can move between projects.  Passing one of those paths to Code *and*
         // also using its parent as Code's working directory makes Code resolve
-        // it twice (for example games/game7/scripts/games/game7/scripts/foo.cpp).
+        // it twice (for example games/abyss-of-hollows/scripts/games/abyss-of-hollows/scripts/foo.cpp).
         // Always hand external programs one normalized absolute filename.
         std::error_code path_error;
         // `directory_entry::path()` is project-relative in the Assets panel
-        // (for example games/game7/scripts/Player.cpp).  Resolve that path
+        // (for example games/abyss-of-hollows/scripts/Player.cpp).  Resolve that path
         // against the engine root explicitly rather than against whatever
         // directory happened to launch editor.exe.  The latter was what let
-        // Code receive game/game7/... twice and open a nonexistent empty tab.
+        // Code receive games/abyss-of-hollows/... twice and open a nonexistent empty tab.
         const fs::path requested = script.lexically_normal();
         const fs::path root = find_engine_project_root();
         fs::path absolute_script;
@@ -5497,7 +5497,7 @@ class AssetsPanel {
 
         // A few older layouts stored a script-directory prefix and then
         // appended an already project-relative payload.  That produced paths
-        // such as `games/game7/scripts/games/game7/scripts/Foo.cpp`.  Do not
+        // such as `games/abyss-of-hollows/scripts/games/abyss-of-hollows/scripts/Foo.cpp`.  Do not
         // hand that malformed filename to VS Code.  Instead, examine every
         // `games/` boundary and accept the first suffix that resolves to a
         // real file under the engine root.  This is deliberately restricted
@@ -7344,7 +7344,7 @@ static std::string _project_name_from_scene_path(const fs::path& scene_path) {
     return project_name_from_scene_path(scene_path);
 }
 
-// The folder name (game7) is a stable internal identity used by CMake and
+// The folder name is the stable internal identity used by CMake and
 // hot-reload modules.  Player-facing exports must instead use the authored
 // Product Name, while Company Name is retained as shipped metadata.
 struct StandaloneExportIdentity {
@@ -7534,7 +7534,7 @@ static void _write_script_header(const fs::path& header_path,
         const StandaloneExportIdentity export_identity = _load_export_identity(scene_dir, project_name);
         fs::path build_dir  = root / "build" / "standalone_export" / project_name;
         // Keep build intermediates project-scoped, but make the user-facing
-        // export folder match Product Name instead of the internal game7 id.
+        // export folder match Product Name instead of the internal project id.
         fs::path export_dir = root / "export" / export_identity.file_stem;
 
         std::error_code ec;
