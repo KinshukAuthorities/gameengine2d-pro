@@ -11,6 +11,7 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 - **GameEngine Hub** — create, find, import, duplicate, rename, and open projects from one place.
 - **Editor** — a 2D viewport, hierarchy, inspector, assets browser, scene and prefab workflow, tilemap tooling, animator, console, build settings, and visual scripting.
 - **Native scripting** — C++ gameplay scripts compile as isolated project modules, so editing a script does not require rebuilding the Editor.
+- **Visual Scripting**- C++ Scripts but in Node Scripting format, so no need for writing long scripts
 - **Runtime and export** — SDL input/windowing, Vulkan rendering, scene loading, 2D physics, UI, prefabs, tilemaps, and Windows standalone builds.
 - **Abyss of Hollows** — the bundled sample template, including scenes, assets, and native gameplay scripts.
 
@@ -24,7 +25,7 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 4. Create a project with the **Abyss of Hollows** template, then open it in the Editor.
 5. The Abyss of Hollows template includes prebuilt native gameplay modules, just click on play in editor to start playing..
 6. Press **Play** in the Editor to run the active scene.
-7. **PLEASE NOTE THAT IF THE HUB DOSENT WORK AT START, THEN CLOSE AND REOPEN THE HUB, ALSO SOME MAPS OF TEMPLATE GAME ARE LITTLE BUGGY, I GOT NO TIME TO FIX THEM, BUT REST ARE PERFERCTLY FINE....**
+7. **PLEASE NOTE THAT IF THE HUB DOSENT WORK AT START, THEN CLOSE AND REOPEN THE HUB**
 
 ### Quick test path
 
