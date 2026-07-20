@@ -4,19 +4,11 @@ This folder contains the Inno Setup definition and packaging notes for the GameE
 
 ## Build the installer
 
-Run this command from the repository root:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\build_installer.ps1
-```
-
-The script builds the Release Editor and Hub, stages the exact release payload, verifies prerequisite installers, and writes the final executable to `dist\GameEngine2DPro-Setup-1.0.0-x64.exe`.
-
-Use `-SkipPrerequisiteDownload` only when the verified prerequisite cache already exists and a repeat packaging pass is needed.
+DOWNLOAD THE INSTALLER AND ITS READY TO BE USED
 
 ## Installed payload
 
-The installer places the engine under `%LocalAppData%\GameEngine2D Pro`. The installed payload includes:
+The installer places the engine under `%LocalAppData%\GameEngine2D Pro` by default. The installed payload includes:
 
 - GameEngine Hub and Editor
 - SDL runtime, shaders, runtime assets, and editor symbols
@@ -40,7 +32,7 @@ The Microsoft Build Tools bootstrapper downloads its selected workload during in
 
 ## Release notes
 
-The installer is currently unsigned. Sign the final executable with an Authenticode certificate before a public commercial release.
+The installer is currently unsigned. We'll Sign the final executable with an Authenticode certificate before a public commercial release.
 
 `THIRD_PARTY_NOTICES.md` is intentionally included in the installed payload. It records the license and attribution information required for bundled third-party components and assets.
 
