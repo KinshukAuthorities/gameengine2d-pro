@@ -26,13 +26,7 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 5. The Abyss of Hollows template includes prebuilt native gameplay modules, just click on play in editor to start playing..
 6. Press **Play** in the Editor to run the active scene.
 7. **PLEASE NOTE THAT IF THE HUB DOSENT WORK AT START, THEN CLOSE AND REOPEN THE HUB**
-
-### Quick test path
-
-1. In the Assets panel, open `scripts/` and edit an existing `.cpp` script or create a new one.
-2. Save the file and press **Reload Scripts**. The editor rebuilds only the affected native module, never the Editor executable.
-3. Return to Play mode and confirm the change runs.
-4. Open **Project Settings → Build Settings** and use **Build** or **Build & Run** to create a standalone Windows game.
+8. Open **Project Settings → Build Settings** and use **Build** or **Build & Run** to create a standalone Windows game.
 
 ## Supported platform
 
