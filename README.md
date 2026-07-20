@@ -36,9 +36,9 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 
 The installer bundles SDL runtime files with the engine. It installs the supported authoring dependencies needed for the native script workflow; it does not replace GPU drivers.
 
-## Source build
+## Source build ( to view/edit the core engine files locally )
 
-The release installer is the recommended evaluation path. The source tree is provided for code review and contributors who want to build the engine locally.
+The release installer is the recommended evaluation path and is the main project(GameEngine) to download.. but if you want to edit the core engine files locally, you can download the code (*THE CODE MAY NOT WORK PROPERLY LOCALLY IF REQUIRED DEPENDENCIES OR COMMAND LINES ARE NOT RUNNED) . The source tree is provided for code review and contributors who want to build the engine locally.
 
 Requirements:
 
