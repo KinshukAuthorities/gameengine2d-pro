@@ -10,7 +10,7 @@ This repository also includes **Abyss of Hollows**, an original action-adventure
 
 - **GameEngine Hub** — create, find, import, duplicate, rename, and open projects from one place.
 - **Editor** — a 2D viewport, hierarchy, inspector, assets browser, scene and prefab workflow, tilemap tooling, animator, console, build settings, and visual scripting.
-- **Native scripting** — C++ gameplay scripts compile as isolated project modules, so editing a script does not require rebuilding the Editor.
+- **Native scripting** — C++ gameplay scripts used.
 - **Visual Scripting**- C++ Scripts but in Node Scripting format, so no need for writing long scripts
 - **Runtime and export** — SDL input/windowing, Vulkan rendering, scene loading, 2D physics, UI, prefabs, tilemaps, and Windows standalone builds.
 - **Abyss of Hollows** — the bundled sample template, including scenes, assets, and native gameplay scripts.
@@ -69,7 +69,7 @@ The private repository is shared with the required Devpost/OpenAI review address
 
 I used Codex with GPT‑5.6 throughout development to build the whole editor, c++ scripting base, standalone game feature, all the components,tools,panels investigate runtime and hot-reload issues, implement editor and installer workflows, build hub, improved visual scripting, improve project packaging and validate everything The Provided Feedback ID Contains the longest And most descriptive chat I have did for This Engine.
 
-I directed the product scope, chose the features and priorities, tested the editor and game workflows, and made the final release decisions. The work included native-script reload reliability, project management, installer packaging, the Abyss of Hollows template, and the release verification path.
+I directed the product scope, chose the features and priorities, tested the editor and game workflows, and made the final release decisions.
 
 - **Codex Session ID:** `019f6664-fcff-7812-8dce-f3910c4b6615`
 - **Development record:** [`docs/CODEX_BUILD_LOG.md`](docs/CODEX_BUILD_LOG.md)
