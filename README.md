@@ -67,7 +67,7 @@ The private repository is shared with the required Devpost/OpenAI review address
 
 ## How I used Codex and GPT-5.6
 
-I used Codex desktop with GPT-5.6 throughout development to work through the engine's C++ codebase, diagnose native-script rebuild problems, improve the editor and Hub workflow, and prepare the Windows installer. It helped me inspect the existing implementation, make targeted changes, and run focused build and packaging checks.
+I used Codex with GPT‑5.6 throughout development to build the whole editor, c++ scripting base, standalone game feature, all the components,tools,panels investigate runtime and hot-reload issues, implement editor and installer workflows, build hub, improved visual scripting, improve project packaging and validate everything The Provided Feedback ID Contains the longest And most descriptive chat I have did for This Engine.
 
 I directed the product scope, chose the features and priorities, tested the editor and game workflows, and made the final release decisions. The work included native-script reload reliability, project management, installer packaging, the Abyss of Hollows template, and the release verification path.
 
