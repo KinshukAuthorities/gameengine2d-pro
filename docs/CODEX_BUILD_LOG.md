@@ -9,13 +9,17 @@ This is a concise record of the work and release checks behind my GameEngine2D P
 - **Workspace:** `C:\Users\lenovo\OneDrive\Desktop\game_engine`
 - **Workflow:** Codex desktop with GPT-5.6
 
-## Work completed with Codex and GPT-5.6
+## Work completed with Codex and GPT-5.6 In The Provided Session ID
 
-I used Codex and GPT-5.6 as implementation and verification tools while I directed the product, set priorities, tested changes, and approved the final release.
+I used Codex with GPT‑5.6 throughout development to build the whole editor, c++ scripting base, standalone game feature, all the components,tools,panels investigate runtime and hot-reload issues, implement editor and installer workflows, build hub, improved visual scripting, improve project packaging and validate everything The Provided Feedback ID Contains the longestAnd most descriptive chat I have did forThis Engine. Rest of the Features were made in Other small small chats but in the provided session id, I did...
 
 ### Engine and authoring work
 
 - Diagnosed stale generated C++ wrapper references after scripts were deleted.
+- Designed and implemented whole proper Hub
+- Majorly upgraded all Windows Panels and All components
+- Visual Scripting was majorly improved and implemented
+- Mostly all major bugs and minor issues were fixed
 - Reworked the project-specific native-script path so scripts compile as independent reloadable modules instead of requiring an Editor rebuild.
 - Added project-lock and build/reload safeguards.
 - Improved project discovery, manifests, Hub project actions, template copying, and Editor launch behavior.
@@ -24,7 +28,7 @@ I used Codex and GPT-5.6 as implementation and verification tools while I direct
 ### Packaging work
 
 - Built a Windows installer around Hub, Editor, runtime files, assets, shaders, templates, C++ authoring sources/headers, and required prerequisites.
-- Configured the installed engine under `%LocalAppData%\GameEngine2D Pro` so Hub-created projects stay writable under `games\`.
+- Configured the installed engine under `%LocalAppData%\GameEngine2D Pro` by default, so Hub-created projects stay writable under `games\`.
 - Kept **Abyss of Hollows** as the only bundled Hub sample template.
 - Added staging checks for development residue, stale templates, and retired script files.
 
