@@ -1,6 +1,6 @@
 # Development and Release Record
 
-This is a concise record of the work and release checks behind my GameEngine2D Pro OpenAI Build Week submission. I am keeping it separate from the raw conversation history so the repository stays focused on the project and does not expose unrelated diagnostics or personal information.
+This is a concise record of the work behind my GameEngine2D Pro OpenAI Build Week submission.
 
 ## Session reference
 
@@ -31,22 +31,6 @@ I used Codex with GPT‑5.6 throughout development to build the whole editor, c+
 - Configured the installed engine under `%LocalAppData%\GameEngine2D Pro` by default, so Hub-created projects stay writable under `games\`.
 - Kept **Abyss of Hollows** as the only bundled Hub sample template.
 - Added staging checks for development residue, stale templates, and retired script files.
-
-## Template validation
-
-I copied the packaged `abyss-of-hollows` template into an isolated temporary engine root and checked it with the same native C++ module path used after installation.
-
-| Check | Result |
-| --- | --- |
-| Shipped sample template | `abyss-of-hollows` only |
-| Native C++ modules configured | 24 |
-| Native C++ modules compiled | 24 / 24 |
-| Script classes registered | 24 |
-| Scene references without registration | 0 |
-| Retired `NewScript*.cpp` files shipped | 0 |
-| Required installed authoring files | Present |
-
-The package review caught missing Editor source and Dear ImGui headers needed by the installed native-script build. I added them to the staged payload, rebuilt the installer, and repeated the clean-template validation.
 
 ## Release artifact
 
