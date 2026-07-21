@@ -57,7 +57,7 @@ The built executables are placed under `build\editor\Release\editor.exe` and `bu
 
 The repository contains source, project assets, build definitions, documentation, and the installer pipeline. Generated `build/` folders, crash reports, exports, and release executables are intentionally excluded from Git as they are only generated after building the game engine locally and do not contain any core engine files. The production installer is published as a GitHub Release asset instead.
 
-The private repository is shared with the required Devpost/OpenAI review addresses for evaluation. The included license governs evaluation access; third-party dependencies and assets retain their own notices and terms.
+The repository is shared publicly for Devpost/OpenAI build week evaluation. The included license is GNU General Public License v3.0; third-party dependencies and assets retain their own notices and terms.
 
 ## How I used Codex and GPT-5.6
 
