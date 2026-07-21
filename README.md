@@ -55,7 +55,7 @@ The built executables are placed under `build\editor\Release\editor.exe` and `bu
 
 ## Repository and release contents
 
-The repository contains source, project assets, build definitions, documentation, and the installer pipeline. Generated `build/` folders, crash reports, exports, and release executables are intentionally excluded from Git. The production installer is published as a GitHub Release asset instead.
+The repository contains source, project assets, build definitions, documentation, and the installer pipeline. Generated `build/` folders, crash reports, exports, and release executables are intentionally excluded from Git as they are only generated after building the game engine locally and do not contain any core engine files. The production installer is published as a GitHub Release asset instead.
 
 The private repository is shared with the required Devpost/OpenAI review addresses for evaluation. The included license governs evaluation access; third-party dependencies and assets retain their own notices and terms.
 
