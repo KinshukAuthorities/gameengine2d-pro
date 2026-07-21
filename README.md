@@ -71,4 +71,7 @@ I directed the product scope, chose the features and priorities, tested the edit
 
 ## License and notices
 
-GameEngine2D Pro's original source and original assets are proprietary and all rights are reserved. See [`LICENSE`](LICENSE) for the limited evaluation terms. Third-party components and assets remain subject to their respective licenses and notices; see [`installer/THIRD_PARTY_NOTICES.md`](installer/THIRD_PARTY_NOTICES.md) and the Abyss asset notices.
+Copyright (C) 2026 Kinshuk12-PRO.
+
+GameEngine2D Pro is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE).
+Third-party components and assets remain subject to their respective licenses and notices; see [`installer/THIRD_PARTY_NOTICES.md`](installer/THIRD_PARTY_NOTICES.md) and the Abyss asset notices.
